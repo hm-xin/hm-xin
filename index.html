@@ -5,9 +5,302 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Hamza Macabato</title>
 		<script src="https://cdn.tailwindcss.com"></script>
-		<script src="tailwindconfig.js"></script>
+		<script>
+			tailwind.config = {
+				darkMode: "class",
+				theme: {
+					extend: {
+						colors: {
+							primary: {
+								50: "#fff7ed",
+								100: "#ffedd5",
+								200: "#fed7aa",
+								300: "#fdba74",
+								400: "#fb923c",
+								500: "#f97316",
+								600: "#ea580c",
+								700: "#c2410c",
+								800: "#9a3412",
+								900: "#7c2d12",
+							},
+						},
+						animation: {
+							"fade-in": "fadeIn 0.6s ease-in-out",
+							"slide-up": "slideUp 0.8s ease-out",
+							"modal-in": "modalIn 0.3s ease-out",
+							"backdrop-in": "backdropIn 0.3s ease-out",
+						},
+						keyframes: {
+							fadeIn: {
+								"0%": { opacity: "0" },
+								"100%": { opacity: "1" },
+							},
+							slideUp: {
+								"0%": { opacity: "0", transform: "translateY(20px)" },
+								"100%": { opacity: "1", transform: "translateY(0)" },
+							},
+							modalIn: {
+								"0%": {
+									opacity: "0",
+									transform: "scale(0.95) translateY(-10px)",
+								},
+								"100%": { opacity: "1", transform: "scale(1) translateY(0)" },
+							},
+							backdropIn: {
+								"0%": { opacity: "0" },
+								"100%": { opacity: "1" },
+							},
+						},
+					},
+				},
+			};
+
+			// Enhanced Theme Management System
+			class ThemeManager {
+				constructor() {
+					this.themes = ["light", "dark", "system"];
+					this.currentTheme = this.getStoredTheme();
+					this.init();
+				}
+
+				init() {
+					// Apply theme immediately to prevent flash
+					this.applyTheme(this.currentTheme);
+
+					// Set up event listeners
+					document.addEventListener("DOMContentLoaded", () => {
+						this.updateThemeControls();
+						this.setupSystemThemeListener();
+					});
+				}
+
+				getStoredTheme() {
+					// Using a fallback since we can't use localStorage in this environment
+					return "system";
+				}
+
+				getSystemTheme() {
+					return window.matchMedia("(prefers-color-scheme: dark)").matches
+						? "dark"
+						: "light";
+				}
+
+				getEffectiveTheme(theme = this.currentTheme) {
+					return theme === "system" ? this.getSystemTheme() : theme;
+				}
+
+				applyTheme(theme) {
+					const effectiveTheme = this.getEffectiveTheme(theme);
+					document.documentElement.classList.toggle(
+						"dark",
+						effectiveTheme === "dark"
+					);
+				}
+
+				setTheme(theme) {
+					if (!this.themes.includes(theme)) return;
+
+					this.currentTheme = theme;
+					this.applyTheme(theme);
+					this.updateThemeControls();
+				}
+
+				toggleTheme() {
+					const currentEffective = this.getEffectiveTheme();
+					const newTheme = currentEffective === "dark" ? "light" : "dark";
+					this.setTheme(newTheme);
+				}
+
+				updateThemeControls() {
+					// Update dropdown
+					const select = document.getElementById("theme-select");
+					if (select) {
+						select.value = this.currentTheme;
+					}
+
+					// Update toggle button icons
+					this.updateThemeIcon();
+				}
+
+				updateThemeIcon() {
+					const isDark = this.getEffectiveTheme() === "dark";
+					const sunIcon = document.getElementById("sun-icon");
+					const moonIcon = document.getElementById("moon-icon");
+
+					if (sunIcon && moonIcon) {
+						sunIcon.style.display = isDark ? "block" : "none";
+						moonIcon.style.display = isDark ? "none" : "block";
+					}
+				}
+
+				setupSystemThemeListener() {
+					window
+						.matchMedia("(prefers-color-scheme: dark)")
+						.addEventListener("change", () => {
+							if (this.currentTheme === "system") {
+								this.applyTheme("system");
+								this.updateThemeIcon();
+							}
+						});
+				}
+			}
+
+			// Modal Management System
+			class ModalManager {
+				constructor() {
+					this.isOpen = false;
+					this.modal = null;
+					this.backdrop = null;
+					this.init();
+				}
+
+				init() {
+					document.addEventListener("DOMContentLoaded", () => {
+						this.modal = document.getElementById("booking-modal");
+						this.backdrop = document.getElementById("modal-backdrop");
+						this.setupEventListeners();
+					});
+				}
+
+				setupEventListeners() {
+					// Close modal when clicking backdrop
+					if (this.backdrop) {
+						this.backdrop.addEventListener("click", (e) => {
+							if (e.target === this.backdrop) {
+								this.closeModal();
+							}
+						});
+					}
+
+					// Close modal with Escape key
+					document.addEventListener("keydown", (e) => {
+						if (e.key === "Escape" && this.isOpen) {
+							this.closeModal();
+						}
+					});
+
+					// Handle form submission
+					const form = document.getElementById("booking-form");
+					if (form) {
+						form.addEventListener("submit", (e) => {
+							e.preventDefault();
+							this.handleFormSubmit();
+						});
+					}
+				}
+
+				openModal() {
+					if (!this.modal || !this.backdrop) return;
+
+					this.isOpen = true;
+					this.backdrop.classList.remove("hidden");
+					this.modal.classList.remove("hidden");
+
+					// Prevent body scroll
+					document.body.style.overflow = "hidden";
+
+					// Focus first input
+					setTimeout(() => {
+						const firstInput = this.modal.querySelector(
+							"input, textarea, select"
+						);
+						if (firstInput) firstInput.focus();
+					}, 100);
+				}
+
+				closeModal() {
+					if (!this.modal || !this.backdrop) return;
+
+					this.isOpen = false;
+					this.backdrop.classList.add("hidden");
+					this.modal.classList.add("hidden");
+
+					// Restore body scroll
+					document.body.style.overflow = "";
+
+					// Reset form
+					const form = document.getElementById("booking-form");
+					if (form) form.reset();
+				}
+
+				handleFormSubmit() {
+					const formData = new FormData(
+						document.getElementById("booking-form")
+					);
+					const data = Object.fromEntries(formData);
+
+					// Simulate form submission
+					console.log("Booking submitted:", data);
+
+					// Show success message
+					this.showSuccessMessage();
+
+					// Close modal after delay
+					setTimeout(() => {
+						this.closeModal();
+					}, 2000);
+				}
+
+				showSuccessMessage() {
+					const submitBtn = document.getElementById("submit-btn");
+					const originalText = submitBtn.innerHTML;
+
+					submitBtn.innerHTML = `
+			<svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+			</svg>
+			Sent Successfully!
+		`;
+					submitBtn.disabled = true;
+					submitBtn.classList.remove(
+						"bg-gradient-to-r",
+						"from-primary-500",
+						"to-orange-500",
+						"hover:from-primary-600",
+						"hover:to-orange-600"
+					);
+					submitBtn.classList.add("bg-green-500");
+
+					setTimeout(() => {
+						submitBtn.innerHTML = originalText;
+						submitBtn.disabled = false;
+						submitBtn.classList.add(
+							"bg-gradient-to-r",
+							"from-primary-500",
+							"to-orange-500",
+							"hover:from-primary-600",
+							"hover:to-orange-600"
+						);
+						submitBtn.classList.remove("bg-green-500");
+					}, 2000);
+				}
+			}
+
+			// Initialize managers
+			const themeManager = new ThemeManager();
+			const modalManager = new ModalManager();
+
+			// Global functions for HTML event handlers
+			function changeTheme(value) {
+				themeManager.setTheme(value);
+			}
+
+			function toggleTheme() {
+				themeManager.toggleTheme();
+			}
+
+			function openBookingModal() {
+				modalManager.openModal();
+			}
+
+			function closeBookingModal() {
+				modalManager.closeModal();
+			}
+		</script>
 	</head>
-	<body class="antialiased font-sans bg-gradient-to-br from-slate-50 to-gray-100 dark:from-gray-900 dark:to-slate-800 transition-colors duration-300">
+	<body
+		class="antialiased font-sans bg-gradient-to-br from-slate-50 to-gray-100 dark:from-gray-900 dark:to-slate-800 transition-colors duration-300"
+	>
 		<div class="min-h-screen flex justify-center items-start py-8 px-4">
 			<main
 				class="w-full max-w-4xl bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/20 p-8 animate-fade-in transition-colors duration-300"
@@ -32,15 +325,15 @@
 								class="absolute inset-0 bg-primary-50 dark:bg-primary-900/30 rounded-lg scale-0 group-hover:scale-100 transition-transform duration-300 -z-10"
 							></span>
 						</a>
-						<a
-							href=""
-							class="group relative text-slate-700 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-all duration-300 font-medium"
+						<button
+							onclick="openBookingModal()"
+							class="group relative text-slate-700 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-all duration-300 font-medium cursor-pointer"
 						>
 							<span class="relative z-10">[b]ook a call</span>
 							<span
 								class="absolute inset-0 bg-primary-50 dark:bg-primary-900/30 rounded-lg scale-0 group-hover:scale-100 transition-transform duration-300 -z-10"
 							></span>
-						</a>
+						</button>
 					</div>
 
 					<!-- Enhanced Theme Controls -->
@@ -173,7 +466,7 @@
 							<div
 								class="group p-6 bg-white dark:bg-gray-800 rounded-xl border border-slate-200 dark:border-gray-700 hover:border-primary-200 dark:hover:border-primary-600 hover:shadow-lg transition-all duration-300"
 							>
-								<a href="#" class="block space-y-3">
+								<a href="project-details.html" class="block space-y-3">
 									<h3
 										class="font-semibold text-xl text-slate-800 dark:text-gray-200 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-300"
 									>
@@ -212,7 +505,7 @@
 							<div
 								class="group p-6 bg-white dark:bg-gray-800 rounded-xl border border-slate-200 dark:border-gray-700 hover:border-primary-200 dark:hover:border-primary-600 hover:shadow-lg transition-all duration-300"
 							>
-								<a href="#" class="block space-y-3">
+								<a href="project-details.html" class="block space-y-3">
 									<h3
 										class="font-semibold text-xl text-slate-800 dark:text-gray-200 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-300"
 									>
@@ -310,8 +603,8 @@
 									>linkedin</span
 								>
 							</a>
-							<a
-								href="#book-call"
+							<button
+								onclick="openBookingModal()"
 								class="group flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-primary-500 to-orange-500 text-white rounded-lg hover:from-primary-600 hover:to-orange-600 transition-all duration-300 shadow-lg hover:shadow-xl"
 							>
 								<svg
@@ -328,11 +621,336 @@
 									/>
 								</svg>
 								<span>book a call</span>
-							</a>
+							</button>
 						</div>
 					</div>
 				</div>
 			</main>
 		</div>
+
+		<!-- Booking Modal -->
+		<div
+			id="modal-backdrop"
+			class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden animate-backdrop-in"
+		>
+			<div class="flex items-center justify-center min-h-screen p-4">
+				<div
+					id="booking-modal"
+					class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto animate-modal-in hidden"
+				>
+					<!-- Modal Header -->
+					<div
+						class="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700"
+					>
+						<div class="flex items-center gap-3">
+							<div
+								class="p-2 bg-gradient-to-r from-primary-500 to-orange-500 rounded-lg"
+							>
+								<svg
+									class="w-5 h-5 text-white"
+									fill="none"
+									stroke="currentColor"
+									viewBox="0 0 24 24"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										stroke-width="2"
+										d="M8 7V3a1 1 0 011-1h6a1 1 0 011 1v4m-6 0h6m-6 0V7a1 1 0 00-1 1v10a1 1 0 001 1h8a1 1 0 001-1V8a1 1 0 00-1-1h-2"
+									/>
+								</svg>
+							</div>
+							<div>
+								<h3 class="text-xl font-bold text-slate-800 dark:text-gray-200">
+									Book a Call
+								</h3>
+								<p class="text-sm text-slate-600 dark:text-gray-400">
+									Let's discuss your project needs
+								</p>
+							</div>
+						</div>
+						<button
+							onclick="closeBookingModal()"
+							class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors duration-300"
+						>
+							<svg
+								class="w-5 h-5 text-slate-600 dark:text-gray-400"
+								fill="none"
+								stroke="currentColor"
+								viewBox="0 0 24 24"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M6 18L18 6M6 6l12 12"
+								/>
+							</svg>
+						</button>
+					</div>
+
+					<!-- Modal Body -->
+					<form id="booking-form" class="p-6 space-y-4">
+						<!-- Name -->
+						<div>
+							<label
+								for="name"
+								class="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-2"
+							>
+								Full Name *
+							</label>
+							<input
+								type="text"
+								id="name"
+								name="name"
+								required
+								class="w-full px-4 py-3 bg-white dark:bg-gray-700 border border-slate-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent text-slate-900 dark:text-gray-100 placeholder-slate-400 dark:placeholder-gray-400"
+								placeholder="Your full name"
+							/>
+						</div>
+
+						<!-- Email -->
+						<div>
+							<label
+								for="email"
+								class="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-2"
+							>
+								Email Address *
+							</label>
+							<input
+								type="email"
+								id="email"
+								name="email"
+								required
+								class="w-full px-4 py-3 bg-white dark:bg-gray-700 border border-slate-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent text-slate-900 dark:text-gray-100 placeholder-slate-400 dark:placeholder-gray-400"
+								placeholder="your@email.com"
+							/>
+						</div>
+
+						<!-- Company -->
+						<div>
+							<label
+								for="company"
+								class="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-2"
+							>
+								Company/Organization
+							</label>
+							<input
+								type="text"
+								id="company"
+								name="company"
+								class="w-full px-4 py-3 bg-white dark:bg-gray-700 border border-slate-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent text-slate-900 dark:text-gray-100 placeholder-slate-400 dark:placeholder-gray-400"
+								placeholder="Your company name (optional)"
+							/>
+						</div>
+
+						<!-- Project Type -->
+						<div>
+							<label
+								for="project-type"
+								class="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-2"
+							>
+								Project Type *
+							</label>
+							<select
+								id="project-type"
+								name="project-type"
+								required
+								class="w-full px-4 py-3 bg-white dark:bg-gray-700 border border-slate-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent text-slate-900 dark:text-gray-100"
+							>
+								<option value="">Select project type</option>
+								<option value="web-application">Web Application</option>
+								<option value="mobile-app">Mobile Application</option>
+								<option value="api-development">API Development</option>
+								<option value="database-design">Database Design</option>
+								<option value="system-integration">System Integration</option>
+								<option value="consultation">Technical Consultation</option>
+								<option value="other">Other</option>
+							</select>
+						</div>
+
+						<!-- Budget Range -->
+						<div>
+							<label
+								for="budget"
+								class="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-2"
+							>
+								Budget Range
+							</label>
+							<select
+								id="budget"
+								name="budget"
+								class="w-full px-4 py-3 bg-white dark:bg-gray-700 border border-slate-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent text-slate-900 dark:text-gray-100"
+							>
+								<option value="">Select budget range</option>
+								<option value="under-1k">Under $1,000</option>
+								<option value="1k-5k">$1,000 - $5,000</option>
+								<option value="5k-10k">$5,000 - $10,000</option>
+								<option value="10k-25k">$10,000 - $25,000</option>
+								<option value="25k-plus">$25,000+</option>
+								<option value="discuss">Let's discuss</option>
+							</select>
+						</div>
+
+						<!-- Timeline -->
+						<div>
+							<label
+								for="timeline"
+								class="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-2"
+							>
+								Project Timeline
+							</label>
+							<select
+								id="timeline"
+								name="timeline"
+								class="w-full px-4 py-3 bg-white dark:bg-gray-700 border border-slate-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent text-slate-900 dark:text-gray-100"
+							>
+								<option value="">Select timeline</option>
+								<option value="asap">ASAP</option>
+								<option value="1-month">Within 1 month</option>
+								<option value="2-3-months">2-3 months</option>
+								<option value="3-6-months">3-6 months</option>
+								<option value="6-months-plus">6+ months</option>
+								<option value="flexible">Flexible</option>
+							</select>
+						</div>
+
+						<!-- Project Details -->
+						<div>
+							<label
+								for="details"
+								class="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-2"
+							>
+								Project Details *
+							</label>
+							<textarea
+								id="details"
+								name="details"
+								required
+								rows="4"
+								class="w-full px-4 py-3 bg-white dark:bg-gray-700 border border-slate-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent text-slate-900 dark:text-gray-100 placeholder-slate-400 dark:placeholder-gray-400 resize-none"
+								placeholder="Tell me about your project requirements, goals, and any specific features you need..."
+							></textarea>
+						</div>
+
+						<!-- Preferred Contact Method -->
+						<div>
+							<label
+								class="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-3"
+							>
+								Preferred Contact Method *
+							</label>
+							<div class="space-y-2">
+								<label class="flex items-center">
+									<input
+										type="radio"
+										name="contact-method"
+										value="email"
+										required
+										class="w-4 h-4 text-primary-500 bg-white dark:bg-gray-700 border-slate-300 dark:border-gray-600 focus:ring-primary-500 focus:ring-2"
+									/>
+									<span class="ml-2 text-slate-700 dark:text-gray-300"
+										>Email</span
+									>
+								</label>
+								<label class="flex items-center">
+									<input
+										type="radio"
+										name="contact-method"
+										value="phone"
+										class="w-4 h-4 text-primary-500 bg-white dark:bg-gray-700 border-slate-300 dark:border-gray-600 focus:ring-primary-500 focus:ring-2"
+									/>
+									<span class="ml-2 text-slate-700 dark:text-gray-300"
+										>Phone Call</span
+									>
+								</label>
+								<label class="flex items-center">
+									<input
+										type="radio"
+										name="contact-method"
+										value="video"
+										class="w-4 h-4 text-primary-500 bg-white dark:bg-gray-700 border-slate-300 dark:border-gray-600 focus:ring-primary-500 focus:ring-2"
+									/>
+									<span class="ml-2 text-slate-700 dark:text-gray-300"
+										>Video Call</span
+									>
+								</label>
+							</div>
+						</div>
+
+						<!-- Phone Number (conditional) -->
+						<div id="phone-field" class="hidden">
+							<label
+								for="phone"
+								class="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-2"
+							>
+								Phone Number
+							</label>
+							<input
+								type="tel"
+								id="phone"
+								name="phone"
+								class="w-full px-4 py-3 bg-white dark:bg-gray-700 border border-slate-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent text-slate-900 dark:text-gray-100 placeholder-slate-400 dark:placeholder-gray-400"
+								placeholder="+1 (555) 123-4567"
+							/>
+						</div>
+
+						<!-- Submit Button -->
+						<div class="pt-4">
+							<button
+								type="submit"
+								id="submit-btn"
+								class="w-full bg-gradient-to-r from-primary-500 to-orange-500 hover:from-primary-600 hover:to-orange-600 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center"
+							>
+								<svg
+									class="w-5 h-5 mr-2"
+									fill="none"
+									stroke="currentColor"
+									viewBox="0 0 24 24"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										stroke-width="2"
+										d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+									/>
+								</svg>
+								Send Request
+							</button>
+						</div>
+
+						<!-- Note -->
+						<div
+							class="text-xs text-slate-500 dark:text-gray-400 text-center pt-2"
+						>
+							I'll get back to you within 24 hours to schedule our call.
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<script>
+			// Show/hide phone field based on contact method selection
+			document.addEventListener("DOMContentLoaded", function () {
+				const contactMethods = document.querySelectorAll(
+					'input[name="contact-method"]'
+				);
+				const phoneField = document.getElementById("phone-field");
+				const phoneInput = document.getElementById("phone");
+
+				contactMethods.forEach((method) => {
+					method.addEventListener("change", function () {
+						if (this.value === "phone" || this.value === "video") {
+							phoneField.classList.remove("hidden");
+							phoneInput.required = true;
+						} else {
+							phoneField.classList.add("hidden");
+							phoneInput.required = false;
+						}
+					});
+				});
+			});
+		</script>
 	</body>
 </html>

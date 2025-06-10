@@ -1,6 +1,6 @@
 ## Hi there 👋
 
-#visit my website <a href="https://hm-xin.vercel.app/">hamza macabato</a>
+#visit my website <a href="https://hm-xin.vercel.app/">hamza macabato</a> this one is still on beta.
 
 <!--
 **hm-xin/hm-xin** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
