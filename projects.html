@@ -278,15 +278,15 @@
 				container.innerHTML = projects
 					.map(
 						(project) => `
-		<div class="group p-6 bg-white dark:bg-gray-800 rounded-xl border border-slate-200 dark:border-gray-700 hover:border-primary-200 dark:hover:border-primary-600 hover:shadow-lg transition-all duration-300">
-			<div class="space-y-4">
-				<div class="flex items-start justify-between">
-					<div class="space-y-2">
-						<div class="flex items-center gap-2">
-							<h3 class="font-semibold text-xl text-slate-800 dark:text-gray-200 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-300">
+		<div class="group p-4 sm:p-6 bg-white dark:bg-gray-800 rounded-xl border border-slate-200 dark:border-gray-700 hover:border-primary-200 dark:hover:border-primary-600 hover:shadow-lg transition-all duration-300">
+			<div class="space-y-3 sm:space-y-4">
+				<div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-4">
+					<div class="space-y-2 flex-1 min-w-0">
+						<div class="flex items-start gap-2 flex-wrap">
+							<h3 class="font-semibold text-lg sm:text-xl text-slate-800 dark:text-gray-200 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-300 break-words">
 								${project.title}
 							</h3>
-							<span class="px-2 py-1 text-xs font-medium rounded-full ${
+							<span class="px-2 py-1 text-xs font-medium rounded-full whitespace-nowrap ${
 								project.status === "Completed"
 									? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400"
 									: "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400"
@@ -298,20 +298,20 @@
 							project.year
 						}</p>
 					</div>
-					<span class="text-xs text-slate-400 dark:text-gray-500 bg-slate-100 dark:bg-gray-700 px-2 py-1 rounded-md">
+					<span class="text-xs text-slate-400 dark:text-gray-500 bg-slate-100 dark:bg-gray-700 px-2 py-1 rounded-md whitespace-nowrap self-start">
 						${project.category}
 					</span>
 				</div>
 				
-				<p class="text-slate-600 dark:text-gray-400 leading-relaxed">
+				<p class="text-slate-600 dark:text-gray-400 leading-relaxed text-sm sm:text-base">
 					${project.description}
 				</p>
 				
-				<div class="flex flex-wrap gap-2">
+				<div class="flex flex-wrap gap-1.5 sm:gap-2">
 					${project.technologies
 						.map(
 							(tech) => `
-						<span class="px-2 py-1 text-xs font-medium bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 rounded-md">
+						<span class="px-2 py-1 text-xs font-medium bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 rounded-md whitespace-nowrap">
 							${tech}
 						</span>
 					`
@@ -342,96 +342,98 @@
 	<body
 		class="antialiased font-sans bg-gradient-to-br from-slate-50 to-gray-100 dark:from-gray-900 dark:to-slate-800 transition-colors duration-300"
 	>
-		<div class="min-h-screen flex justify-center items-start py-8 px-4">
+		<div class="min-h-screen flex justify-center items-start py-4 sm:py-8 px-3 sm:px-4">
 			<main
-				class="w-full max-w-5xl bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/20 p-8 animate-fade-in transition-colors duration-300"
+				class="w-full max-w-5xl bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl sm:rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/20 p-4 sm:p-6 lg:p-8 animate-fade-in transition-colors duration-300"
 			>
-				<nav class="mb-8">
-					<div class="flex flex-wrap gap-6">
-						<a
-							href="index.html"
-							class="group relative text-slate-700 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-all duration-300 font-medium"
-						>
-							<span class="relative z-10">[h]ome</span>
-							<span
-								class="absolute inset-0 bg-primary-50 dark:bg-primary-900/30 rounded-lg scale-0 group-hover:scale-100 transition-transform duration-300 -z-10"
-							></span>
-						</a>
-						<a
-							href="projects.html"
-							class="group relative text-primary-500 dark:text-primary-400 transition-all duration-300 font-medium"
-						>
-							<span class="relative z-10">[p]rojects</span>
-							<span
-								class="absolute inset-0 bg-primary-50 dark:bg-primary-900/30 rounded-lg scale-100 transition-transform duration-300 -z-10"
-							></span>
-						</a>
-						<button
-							onclick="openBookCallModal()"
-							class="group relative text-slate-700 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-all duration-300 font-medium"
-						>
-							<span class="relative z-10">[b]ook a call</span>
-							<span
-								class="absolute inset-0 bg-primary-50 dark:bg-primary-900/30 rounded-lg scale-0 group-hover:scale-100 transition-transform duration-300 -z-10"
-							></span>
-						</button>
-					</div>
+				<nav class="mb-6 sm:mb-8">
+					<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+						<div class="flex flex-wrap gap-3 sm:gap-6">
+							<a
+								href="index.html"
+								class="group relative text-slate-700 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-all duration-300 font-medium text-sm sm:text-base"
+							>
+								<span class="relative z-10">[h]ome</span>
+								<span
+									class="absolute inset-0 bg-primary-50 dark:bg-primary-900/30 rounded-lg scale-0 group-hover:scale-100 transition-transform duration-300 -z-10"
+								></span>
+							</a>
+							<a
+								href="projects.html"
+								class="group relative text-primary-500 dark:text-primary-400 transition-all duration-300 font-medium text-sm sm:text-base"
+							>
+								<span class="relative z-10">[p]rojects</span>
+								<span
+									class="absolute inset-0 bg-primary-50 dark:bg-primary-900/30 rounded-lg scale-100 transition-transform duration-300 -z-10"
+								></span>
+							</a>
+							<button
+								onclick="openBookCallModal()"
+								class="group relative text-slate-700 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-all duration-300 font-medium text-sm sm:text-base"
+							>
+								<span class="relative z-10">[b]ook a call</span>
+								<span
+									class="absolute inset-0 bg-primary-50 dark:bg-primary-900/30 rounded-lg scale-0 group-hover:scale-100 transition-transform duration-300 -z-10"
+								></span>
+							</button>
+						</div>
 
-					<!-- Theme Controls -->
-					<div class="flex items-center gap-3 mt-4">
-						<button
-							onclick="toggleTheme()"
-							class="p-2 rounded-lg bg-white dark:bg-gray-700 border border-slate-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary-500"
-							title="Toggle theme"
-						>
-							<svg
-								id="sun-icon"
-								class="w-4 h-4 text-amber-500"
-								fill="currentColor"
-								viewBox="0 0 20 20"
-								style="display: none"
+						<!-- Theme Controls -->
+						<div class="flex items-center gap-2 sm:gap-3">
+							<button
+								onclick="toggleTheme()"
+								class="p-2 rounded-lg bg-white dark:bg-gray-700 border border-slate-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary-500"
+								title="Toggle theme"
 							>
-								<path
-									fill-rule="evenodd"
-									d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
-									clip-rule="evenodd"
-								/>
-							</svg>
-							<svg
-								id="moon-icon"
-								class="w-4 h-4 text-slate-600 dark:text-gray-400"
-								fill="currentColor"
-								viewBox="0 0 20 20"
-							>
-								<path
-									d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"
-								/>
-							</svg>
-						</button>
-						<div class="relative">
-							<label for="theme-select" class="sr-only">Select Theme</label>
-							<select
-								id="theme-select"
-								onchange="changeTheme(this.value)"
-								class="bg-white dark:bg-gray-700 border border-slate-300 dark:border-gray-600 text-slate-700 dark:text-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 appearance-none cursor-pointer"
-							>
-								<option value="light">☀️ Light</option>
-								<option value="dark">🌙 Dark</option>
-								<option value="system">🖥️ System</option>
-							</select>
+								<svg
+									id="sun-icon"
+									class="w-4 h-4 text-amber-500"
+									fill="currentColor"
+									viewBox="0 0 20 20"
+									style="display: none"
+								>
+									<path
+										fill-rule="evenodd"
+										d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+										clip-rule="evenodd"
+									/>
+								</svg>
+								<svg
+									id="moon-icon"
+									class="w-4 h-4 text-slate-600 dark:text-gray-400"
+									fill="currentColor"
+									viewBox="0 0 20 20"
+								>
+									<path
+										d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"
+									/>
+								</svg>
+							</button>
+							<div class="relative">
+								<label for="theme-select" class="sr-only">Select Theme</label>
+								<select
+									id="theme-select"
+									onchange="changeTheme(this.value)"
+									class="bg-white dark:bg-gray-700 border border-slate-300 dark:border-gray-600 text-slate-700 dark:text-gray-300 rounded-md px-2 sm:px-3 py-2 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 appearance-none cursor-pointer"
+								>
+									<option value="light">☀️ Light</option>
+									<option value="dark">🌙 Dark</option>
+									<option value="system">🖥️ System</option>
+								</select>
+							</div>
 						</div>
 					</div>
 				</nav>
 
-				<div class="space-y-8 animate-slide-up">
-					<div class="space-y-4">
+				<div class="space-y-6 sm:space-y-8 animate-slide-up">
+					<div class="space-y-3 sm:space-y-4">
 						<h1
-							class="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 dark:from-gray-100 dark:to-gray-300 bg-clip-text text-transparent"
+							class="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 dark:from-gray-100 dark:to-gray-300 bg-clip-text text-transparent"
 						>
 							my projects
 						</h1>
 						<p
-							class="text-slate-600 dark:text-gray-400 text-lg leading-relaxed"
+							class="text-slate-600 dark:text-gray-400 text-base sm:text-lg leading-relaxed"
 						>
 							A collection of software projects I've built, from web
 							applications to desktop solutions. Each project represents a step
@@ -440,7 +442,7 @@
 					</div>
 
 					<!-- Projects Grid -->
-					<div id="projects-container" class="grid gap-6">
+					<div id="projects-container" class="grid gap-4 sm:gap-6 grid-cols-1 lg:grid-cols-2">
 						<!-- Projects will be dynamically loaded here -->
 					</div>
 				</div>
@@ -453,12 +455,12 @@
 				class="modal-backdrop fixed inset-0 bg-black/50 animate-backdrop-in"
 				onclick="closeModal()"
 			></div>
-			<div class="fixed inset-0 flex items-center justify-center p-4">
+			<div class="fixed inset-0 flex items-center justify-center p-3 sm:p-4">
 				<div
-					class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-md w-full p-6 animate-modal-in"
+					class="bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl shadow-2xl max-w-md w-full p-4 sm:p-6 animate-modal-in max-h-[90vh] overflow-y-auto"
 				>
-					<div class="flex items-center justify-between mb-6">
-						<h3 class="text-2xl font-bold text-slate-800 dark:text-gray-200">
+					<div class="flex items-center justify-between mb-4 sm:mb-6">
+						<h3 class="text-xl sm:text-2xl font-bold text-slate-800 dark:text-gray-200">
 							Book a Call
 						</h3>
 						<button
@@ -482,7 +484,7 @@
 					</div>
 
 					<div class="space-y-4">
-						<p class="text-slate-600 dark:text-gray-400">
+						<p class="text-slate-600 dark:text-gray-400 text-sm sm:text-base">
 							Let's discuss your project or explore collaboration opportunities.
 							Choose a convenient time for our conversation.
 						</p>
@@ -495,7 +497,7 @@
 								>
 								<input
 									type="text"
-									class="w-full px-3 py-2 border border-slate-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-slate-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500"
+									class="w-full px-3 py-2 border border-slate-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-slate-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500 text-sm sm:text-base"
 									placeholder="Enter your name"
 								/>
 							</div>
@@ -507,7 +509,7 @@
 								>
 								<input
 									type="email"
-									class="w-full px-3 py-2 border border-slate-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-slate-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500"
+									class="w-full px-3 py-2 border border-slate-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-slate-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500 text-sm sm:text-base"
 									placeholder="your@email.com"
 								/>
 							</div>
@@ -519,21 +521,21 @@
 								>
 								<textarea
 									rows="3"
-									class="w-full px-3 py-2 border border-slate-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-slate-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500"
+									class="w-full px-3 py-2 border border-slate-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-slate-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500 text-sm sm:text-base resize-none"
 									placeholder="Tell me about your project or questions..."
 								></textarea>
 							</div>
 						</div>
 
-						<div class="flex gap-3 pt-4">
+						<div class="flex flex-col sm:flex-row gap-3 pt-4">
 							<button
 								onclick="closeModal()"
-								class="flex-1 px-4 py-2 text-slate-700 dark:text-gray-300 border border-slate-300 dark:border-gray-600 rounded-lg hover:bg-slate-50 dark:hover:bg-gray-700 transition-colors duration-200"
+								class="flex-1 px-4 py-2 text-slate-700 dark:text-gray-300 border border-slate-300 dark:border-gray-600 rounded-lg hover:bg-slate-50 dark:hover:bg-gray-700 transition-colors duration-200 text-sm sm:text-base"
 							>
 								Cancel
 							</button>
 							<button
-								class="flex-1 px-4 py-2 bg-gradient-to-r from-primary-500 to-orange-500 text-white rounded-lg hover:from-primary-600 hover:to-orange-600 transition-all duration-200 shadow-lg hover:shadow-xl"
+								class="flex-1 px-4 py-2 bg-gradient-to-r from-primary-500 to-orange-500 text-white rounded-lg hover:from-primary-600 hover:to-orange-600 transition-all duration-200 shadow-lg hover:shadow-xl text-sm sm:text-base"
 							>
 								Send Request
 							</button>

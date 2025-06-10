@@ -305,82 +305,81 @@
 			<main
 				class="w-full max-w-4xl bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/20 p-8 animate-fade-in transition-colors duration-300"
 			>
-				<nav class="mb-8">
-					<div class="flex flex-wrap gap-6">
-						<a
-							href="index.html"
-							class="group relative text-slate-700 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-all duration-300 font-medium"
-						>
-							<span class="relative z-10">[h]ome</span>
-							<span
-								class="absolute inset-0 bg-primary-50 dark:bg-primary-900/30 rounded-lg scale-0 group-hover:scale-100 transition-transform duration-300 -z-10"
-							></span>
-						</a>
-						<a
-							href="projects.html"
-							class="group relative text-slate-700 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-all duration-300 font-medium"
-						>
-							<span class="relative z-10">[p]rojects</span>
-							<span
-								class="absolute inset-0 bg-primary-50 dark:bg-primary-900/30 rounded-lg scale-0 group-hover:scale-100 transition-transform duration-300 -z-10"
-							></span>
-						</a>
-						<button
-							onclick="openBookingModal()"
-							class="group relative text-slate-700 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-all duration-300 font-medium cursor-pointer"
-						>
-							<span class="relative z-10">[b]ook a call</span>
-							<span
-								class="absolute inset-0 bg-primary-50 dark:bg-primary-900/30 rounded-lg scale-0 group-hover:scale-100 transition-transform duration-300 -z-10"
-							></span>
-						</button>
-					</div>
+				<nav class="mb-6 sm:mb-8">
+					<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+						<div class="flex flex-wrap gap-3 sm:gap-6">
+							<a
+								href="index.html"
+								class="group relative text-slate-700 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-all duration-300 font-medium text-sm sm:text-base"
+							>
+								<span class="relative z-10">[h]ome</span>
+								<span
+									class="absolute inset-0 bg-primary-50 dark:bg-primary-900/30 rounded-lg scale-0 group-hover:scale-100 transition-transform duration-300 -z-10"
+								></span>
+							</a>
+							<a
+								href="projects.html"
+								class="group relative text-primary-500 dark:text-primary-400 transition-all duration-300 font-medium text-sm sm:text-base"
+							>
+								<span class="relative z-10">[p]rojects</span>
+								<span
+									class="absolute inset-0 bg-primary-50 dark:bg-primary-900/30 rounded-lg scale-100 transition-transform duration-300 -z-10"
+								></span>
+							</a>
+							<button
+								onclick="openBookCallModal()"
+								class="group relative text-slate-700 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-all duration-300 font-medium text-sm sm:text-base"
+							>
+								<span class="relative z-10">[b]ook a call</span>
+								<span
+									class="absolute inset-0 bg-primary-50 dark:bg-primary-900/30 rounded-lg scale-0 group-hover:scale-100 transition-transform duration-300 -z-10"
+								></span>
+							</button>
+						</div>
 
-					<!-- Enhanced Theme Controls -->
-					<div class="flex items-center gap-3 mt-4">
-						<!-- Theme Toggle Button -->
-						<button
-							onclick="toggleTheme()"
-							class="p-2 rounded-lg bg-white dark:bg-gray-700 border border-slate-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary-500"
-							title="Toggle theme"
-						>
-							<svg
-								id="sun-icon"
-								class="w-4 h-4 text-amber-500"
-								fill="currentColor"
-								viewBox="0 0 20 20"
-								style="display: none"
+						<!-- Theme Controls -->
+						<div class="flex items-center gap-2 sm:gap-3">
+							<button
+								onclick="toggleTheme()"
+								class="p-2 rounded-lg bg-white dark:bg-gray-700 border border-slate-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary-500"
+								title="Toggle theme"
 							>
-								<path
-									fill-rule="evenodd"
-									d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
-									clip-rule="evenodd"
-								/>
-							</svg>
-							<svg
-								id="moon-icon"
-								class="w-4 h-4 text-slate-600 dark:text-gray-400"
-								fill="currentColor"
-								viewBox="0 0 20 20"
-							>
-								<path
-									d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"
-								/>
-							</svg>
-						</button>
-
-						<!-- Theme Dropdown -->
-						<div class="relative">
-							<label for="theme-select" class="sr-only">Select Theme</label>
-							<select
-								id="theme-select"
-								onchange="changeTheme(this.value)"
-								class="bg-white dark:bg-gray-700 border border-slate-300 dark:border-gray-600 text-slate-700 dark:text-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 appearance-none cursor-pointer"
-							>
-								<option value="light">☀️ Light</option>
-								<option value="dark">🌙 Dark</option>
-								<option value="system">🖥️ System</option>
-							</select>
+								<svg
+									id="sun-icon"
+									class="w-4 h-4 text-amber-500"
+									fill="currentColor"
+									viewBox="0 0 20 20"
+									style="display: none"
+								>
+									<path
+										fill-rule="evenodd"
+										d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+										clip-rule="evenodd"
+									/>
+								</svg>
+								<svg
+									id="moon-icon"
+									class="w-4 h-4 text-slate-600 dark:text-gray-400"
+									fill="currentColor"
+									viewBox="0 0 20 20"
+								>
+									<path
+										d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"
+									/>
+								</svg>
+							</button>
+							<div class="relative">
+								<label for="theme-select" class="sr-only">Select Theme</label>
+								<select
+									id="theme-select"
+									onchange="changeTheme(this.value)"
+									class="bg-white dark:bg-gray-700 border border-slate-300 dark:border-gray-600 text-slate-700 dark:text-gray-300 rounded-md px-2 sm:px-3 py-2 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 appearance-none cursor-pointer"
+								>
+									<option value="light">☀️ Light</option>
+									<option value="dark">🌙 Dark</option>
+									<option value="system">🖥️ System</option>
+								</select>
+							</div>
 						</div>
 					</div>
 				</nav>
