@@ -1,955 +1,427 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Hamza Macabato</title>
-		<script src="https://cdn.tailwindcss.com"></script>
-		<script>
-			tailwind.config = {
-				darkMode: "class",
-				theme: {
-					extend: {
-						colors: {
-							primary: {
-								50: "#fff7ed",
-								100: "#ffedd5",
-								200: "#fed7aa",
-								300: "#fdba74",
-								400: "#fb923c",
-								500: "#f97316",
-								600: "#ea580c",
-								700: "#c2410c",
-								800: "#9a3412",
-								900: "#7c2d12",
-							},
-						},
-						animation: {
-							"fade-in": "fadeIn 0.6s ease-in-out",
-							"slide-up": "slideUp 0.8s ease-out",
-							"modal-in": "modalIn 0.3s ease-out",
-							"backdrop-in": "backdropIn 0.3s ease-out",
-						},
-						keyframes: {
-							fadeIn: {
-								"0%": { opacity: "0" },
-								"100%": { opacity: "1" },
-							},
-							slideUp: {
-								"0%": { opacity: "0", transform: "translateY(20px)" },
-								"100%": { opacity: "1", transform: "translateY(0)" },
-							},
-							modalIn: {
-								"0%": {
-									opacity: "0",
-									transform: "scale(0.95) translateY(-10px)",
-								},
-								"100%": { opacity: "1", transform: "scale(1) translateY(0)" },
-							},
-							backdropIn: {
-								"0%": { opacity: "0" },
-								"100%": { opacity: "1" },
-							},
-						},
-					},
-				},
-			};
 
-			// Enhanced Theme Management System
-			class ThemeManager {
-				constructor() {
-					this.themes = ["light", "dark", "system"];
-					this.currentTheme = this.getStoredTheme();
-					this.init();
-				}
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Bootstrap demo</title>
+	<!-- custom css -->
+	<link rel="stylesheet" href="style.css">
+	<!-- bootstrap link -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
 
-				init() {
-					// Apply theme immediately to prevent flash
-					this.applyTheme(this.currentTheme);
+<body>
+	<section class="hero-section text-light min-vh-100 d-flex flex-column">
 
-					// Set up event listeners
-					document.addEventListener("DOMContentLoaded", () => {
-						this.updateThemeControls();
-						this.setupSystemThemeListener();
-					});
-				}
+		<!-- Glass Header -->
+		<header class="glass-header fixed d-flex justify-content-between align-items-center px-3 py-3">
+			<div class="d-flex align-items-center">
+				<button type="button" class="btn btn-outline-light rounded-circle me-2 fw-bold">HM</button>
+			</div>
 
-				getStoredTheme() {
-					// Using a fallback since we can't use localStorage in this environment
-					return "system";
-				}
+			<ul class="nav align-items-center">
+				<li class="nav-item"><a href="#work" class="nav-link text-light px-3">Work</a></li>
+				<li class="nav-item"><a href="#about" class="nav-link text-light px-3">About</a></li>
+				<li class="nav-item"><a href="#experience" class="nav-link text-light px-3">Experience</a></li>
+				<li class="nav-item ms-3">
+					<a href="#contact" class="btn btn-light rounded-pill px-4 d-flex align-items-center">
+						<i class="bi bi-send me-2"></i> Get in touch
+					</a>
+				</li>
+			</ul>
+		</header>
 
-				getSystemTheme() {
-					return window.matchMedia("(prefers-color-scheme: dark)").matches
-						? "dark"
-						: "light";
-				}
-
-				getEffectiveTheme(theme = this.currentTheme) {
-					return theme === "system" ? this.getSystemTheme() : theme;
-				}
-
-				applyTheme(theme) {
-					const effectiveTheme = this.getEffectiveTheme(theme);
-					document.documentElement.classList.toggle(
-						"dark",
-						effectiveTheme === "dark"
-					);
-				}
-
-				setTheme(theme) {
-					if (!this.themes.includes(theme)) return;
-
-					this.currentTheme = theme;
-					this.applyTheme(theme);
-					this.updateThemeControls();
-				}
-
-				toggleTheme() {
-					const currentEffective = this.getEffectiveTheme();
-					const newTheme = currentEffective === "dark" ? "light" : "dark";
-					this.setTheme(newTheme);
-				}
-
-				updateThemeControls() {
-					// Update dropdown
-					const select = document.getElementById("theme-select");
-					if (select) {
-						select.value = this.currentTheme;
-					}
-
-					// Update toggle button icons
-					this.updateThemeIcon();
-				}
-
-				updateThemeIcon() {
-					const isDark = this.getEffectiveTheme() === "dark";
-					const sunIcon = document.getElementById("sun-icon");
-					const moonIcon = document.getElementById("moon-icon");
-
-					if (sunIcon && moonIcon) {
-						sunIcon.style.display = isDark ? "block" : "none";
-						moonIcon.style.display = isDark ? "none" : "block";
-					}
-				}
-
-				setupSystemThemeListener() {
-					window
-						.matchMedia("(prefers-color-scheme: dark)")
-						.addEventListener("change", () => {
-							if (this.currentTheme === "system") {
-								this.applyTheme("system");
-								this.updateThemeIcon();
-							}
-						});
-				}
-			}
-
-			// Modal Management System
-			class ModalManager {
-				constructor() {
-					this.isOpen = false;
-					this.modal = null;
-					this.backdrop = null;
-					this.init();
-				}
-
-				init() {
-					document.addEventListener("DOMContentLoaded", () => {
-						this.modal = document.getElementById("booking-modal");
-						this.backdrop = document.getElementById("modal-backdrop");
-						this.setupEventListeners();
-					});
-				}
-
-				setupEventListeners() {
-					// Close modal when clicking backdrop
-					if (this.backdrop) {
-						this.backdrop.addEventListener("click", (e) => {
-							if (e.target === this.backdrop) {
-								this.closeModal();
-							}
-						});
-					}
-
-					// Close modal with Escape key
-					document.addEventListener("keydown", (e) => {
-						if (e.key === "Escape" && this.isOpen) {
-							this.closeModal();
-						}
-					});
-
-					// Handle form submission
-					const form = document.getElementById("booking-form");
-					if (form) {
-						form.addEventListener("submit", (e) => {
-							e.preventDefault();
-							this.handleFormSubmit();
-						});
-					}
-				}
-
-				openModal() {
-					if (!this.modal || !this.backdrop) return;
-
-					this.isOpen = true;
-					this.backdrop.classList.remove("hidden");
-					this.modal.classList.remove("hidden");
-
-					// Prevent body scroll
-					document.body.style.overflow = "hidden";
-
-					// Focus first input
-					setTimeout(() => {
-						const firstInput = this.modal.querySelector(
-							"input, textarea, select"
-						);
-						if (firstInput) firstInput.focus();
-					}, 100);
-				}
-
-				closeModal() {
-					if (!this.modal || !this.backdrop) return;
-
-					this.isOpen = false;
-					this.backdrop.classList.add("hidden");
-					this.modal.classList.add("hidden");
-
-					// Restore body scroll
-					document.body.style.overflow = "";
-
-					// Reset form
-					const form = document.getElementById("booking-form");
-					if (form) form.reset();
-				}
-
-				handleFormSubmit() {
-					const formData = new FormData(
-						document.getElementById("booking-form")
-					);
-					const data = Object.fromEntries(formData);
-
-					// Simulate form submission
-					console.log("Booking submitted:", data);
-
-					// Show success message
-					this.showSuccessMessage();
-
-					// Close modal after delay
-					setTimeout(() => {
-						this.closeModal();
-					}, 2000);
-				}
-
-				showSuccessMessage() {
-					const submitBtn = document.getElementById("submit-btn");
-					const originalText = submitBtn.innerHTML;
-
-					submitBtn.innerHTML = `
-			<svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-			</svg>
-			Sent Successfully!
-		`;
-					submitBtn.disabled = true;
-					submitBtn.classList.remove(
-						"bg-gradient-to-r",
-						"from-primary-500",
-						"to-orange-500",
-						"hover:from-primary-600",
-						"hover:to-orange-600"
-					);
-					submitBtn.classList.add("bg-green-500");
-
-					setTimeout(() => {
-						submitBtn.innerHTML = originalText;
-						submitBtn.disabled = false;
-						submitBtn.classList.add(
-							"bg-gradient-to-r",
-							"from-primary-500",
-							"to-orange-500",
-							"hover:from-primary-600",
-							"hover:to-orange-600"
-						);
-						submitBtn.classList.remove("bg-green-500");
-					}, 2000);
-				}
-			}
-
-			// Initialize managers
-			const themeManager = new ThemeManager();
-			const modalManager = new ModalManager();
-
-			// Global functions for HTML event handlers
-			function changeTheme(value) {
-				themeManager.setTheme(value);
-			}
-
-			function toggleTheme() {
-				themeManager.toggleTheme();
-			}
-
-			function openBookingModal() {
-				modalManager.openModal();
-			}
-
-			function closeBookingModal() {
-				modalManager.closeModal();
-			}
-		</script>
-	</head>
-	<body
-		class="antialiased font-sans bg-gradient-to-br from-slate-50 to-gray-100 dark:from-gray-900 dark:to-slate-800 transition-colors duration-300"
-	>
-		<div class="min-h-screen flex justify-center items-start py-8 px-4">
-			<main
-				class="w-full max-w-4xl bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/20 p-8 animate-fade-in transition-colors duration-300"
-			>
-				<nav class="mb-6 sm:mb-8">
-					<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-						<div class="flex flex-wrap gap-3 sm:gap-6">
-							<a
-								href="index.html"
-								class="group relative text-slate-700 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-all duration-300 font-medium text-sm sm:text-base"
-							>
-								<span class="relative z-10">[h]ome</span>
-								<span
-									class="absolute inset-0 bg-primary-50 dark:bg-primary-900/30 rounded-lg scale-0 group-hover:scale-100 transition-transform duration-300 -z-10"
-								></span>
-							</a>
-							<a
-								href="projects.html"
-								class="group relative text-primary-500 dark:text-primary-400 transition-all duration-300 font-medium text-sm sm:text-base"
-							>
-								<span class="relative z-10">[p]rojects</span>
-								<span
-									class="absolute inset-0 bg-primary-50 dark:bg-primary-900/30 rounded-lg scale-100 transition-transform duration-300 -z-10"
-								></span>
-							</a>
-							<button
-								onclick="openBookCallModal()"
-								class="group relative text-slate-700 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-all duration-300 font-medium text-sm sm:text-base"
-							>
-								<span class="relative z-10">[b]ook a call</span>
-								<span
-									class="absolute inset-0 bg-primary-50 dark:bg-primary-900/30 rounded-lg scale-0 group-hover:scale-100 transition-transform duration-300 -z-10"
-								></span>
-							</button>
-						</div>
-
-						<!-- Theme Controls -->
-						<div class="flex items-center gap-2 sm:gap-3">
-							<button
-								onclick="toggleTheme()"
-								class="p-2 rounded-lg bg-white dark:bg-gray-700 border border-slate-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary-500"
-								title="Toggle theme"
-							>
-								<svg
-									id="sun-icon"
-									class="w-4 h-4 text-amber-500"
-									fill="currentColor"
-									viewBox="0 0 20 20"
-									style="display: none"
-								>
-									<path
-										fill-rule="evenodd"
-										d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
-										clip-rule="evenodd"
-									/>
-								</svg>
-								<svg
-									id="moon-icon"
-									class="w-4 h-4 text-slate-600 dark:text-gray-400"
-									fill="currentColor"
-									viewBox="0 0 20 20"
-								>
-									<path
-										d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"
-									/>
-								</svg>
-							</button>
-							<div class="relative">
-								<label for="theme-select" class="sr-only">Select Theme</label>
-								<select
-									id="theme-select"
-									onchange="changeTheme(this.value)"
-									class="bg-white dark:bg-gray-700 border border-slate-300 dark:border-gray-600 text-slate-700 dark:text-gray-300 rounded-md px-2 sm:px-3 py-2 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 appearance-none cursor-pointer"
-								>
-									<option value="light">☀️ Light</option>
-									<option value="dark">🌙 Dark</option>
-									<option value="system">🖥️ System</option>
-								</select>
-							</div>
-						</div>
-					</div>
-				</nav>
-
-				<div class="space-y-6 animate-slide-up">
-					<div class="space-y-4">
-						<h1
-							class="text-5xl lg:text-6xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 dark:from-gray-100 dark:to-gray-300 bg-clip-text text-transparent"
-						>
-							hamza macabato
-						</h1>
-						<p
-							class="text-slate-600 dark:text-gray-400 flex items-center gap-2"
-						>
-							<svg
-								class="w-4 h-4 text-primary-500"
-								fill="currentColor"
-								viewBox="0 0 20 20"
-							>
-								<path
-									fill-rule="evenodd"
-									d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
-									clip-rule="evenodd"
-								/>
-							</svg>
-							@ manila, philippines
-						</p>
-					</div>
-
-					<div
-						class="flex items-center gap-3 p-4 bg-gradient-to-r from-primary-50 to-orange-50 dark:from-primary-900/20 dark:to-orange-900/20 rounded-xl border border-primary-100 dark:border-primary-800"
-					>
-						<div class="p-2 bg-primary-500 rounded-lg">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								fill="none"
-								viewBox="0 0 24 24"
-								stroke-width="1.5"
-								stroke="currentColor"
-								class="w-6 h-6 text-white"
-							>
-								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z"
-								/>
-							</svg>
-						</div>
-						<p class="text-slate-700 dark:text-gray-300 font-semibold text-lg">
-							Software Developer
-						</p>
-					</div>
-
-					<div class="prose prose-slate dark:prose-invert max-w-none">
-						<p
-							class="text-slate-700 dark:text-gray-300 leading-relaxed text-lg"
-						>
-							Junior Software Developer skilled in building scalable apps using
-							<span class="font-semibold text-primary-600 dark:text-primary-400"
-								>C#, ASP.NET, PHP, Laravel</span
-							>. Proven success improving system efficiency through clean code
-							and DB optimization. I design, test, and optimize systems that
-							solve real-world problems—
-							<span
-								class="italic font-medium bg-gradient-to-r from-primary-500 to-orange-500 bg-clip-text text-transparent"
-							>
-								faster, cleaner, smarter </span
-							>.
-						</p>
-					</div>
-				</div>
-
-				<div class="mt-12 space-y-8">
-					<div class="space-y-6">
-						<h2 class="text-2xl font-bold flex items-center gap-2">
-							<span class="text-primary-500">*</span>
-							<span
-								class="bg-gradient-to-r from-slate-800 to-slate-600 dark:from-gray-100 dark:to-gray-300 bg-clip-text text-transparent"
-								>projects</span
-							>
-						</h2>
-						<div class="grid gap-6">
-							<div
-								class="group p-6 bg-white dark:bg-gray-800 rounded-xl border border-slate-200 dark:border-gray-700 hover:border-primary-200 dark:hover:border-primary-600 hover:shadow-lg transition-all duration-300"
-							>
-								<a href="project-details.html" class="block space-y-3">
-									<h3
-										class="font-semibold text-xl text-slate-800 dark:text-gray-200 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-300"
-									>
-										Parking Management System
-										<span
-											class="text-sm font-normal text-slate-500 dark:text-gray-400 ml-2"
-											>- Capstone project</span
-										>
-									</h3>
-									<p class="text-slate-600 dark:text-gray-400 leading-relaxed">
-										A web-based system designed to streamline parking
-										operations, featuring real-time slot tracking, user
-										registration, and admin controls.
-									</p>
-									<div
-										class="flex items-center text-primary-500 dark:text-primary-400 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-									>
-										View project
-										<svg
-											class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform duration-300"
-											fill="none"
-											stroke="currentColor"
-											viewBox="0 0 24 24"
-										>
-											<path
-												stroke-linecap="round"
-												stroke-linejoin="round"
-												stroke-width="2"
-												d="M9 5l7 7-7 7"
-											/>
-										</svg>
-									</div>
-								</a>
-							</div>
-
-							<div
-								class="group p-6 bg-white dark:bg-gray-800 rounded-xl border border-slate-200 dark:border-gray-700 hover:border-primary-200 dark:hover:border-primary-600 hover:shadow-lg transition-all duration-300"
-							>
-								<a href="project-details.html" class="block space-y-3">
-									<h3
-										class="font-semibold text-xl text-slate-800 dark:text-gray-200 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-300"
-									>
-										Request Management System
-										<span
-											class="text-sm font-normal text-slate-500 dark:text-gray-400 ml-2"
-											>- Internship project</span
-										>
-									</h3>
-									<p class="text-slate-600 dark:text-gray-400 leading-relaxed">
-										Developed an application to manage and track employee
-										requests efficiently, including status updates and
-										role-based access controls.
-									</p>
-									<div
-										class="flex items-center text-primary-500 dark:text-primary-400 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-									>
-										View project
-										<svg
-											class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform duration-300"
-											fill="none"
-											stroke="currentColor"
-											viewBox="0 0 24 24"
-										>
-											<path
-												stroke-linecap="round"
-												stroke-linejoin="round"
-												stroke-width="2"
-												d="M9 5l7 7-7 7"
-											/>
-										</svg>
-									</div>
-								</a>
-							</div>
-						</div>
-					</div>
-
-					<div class="space-y-6">
-						<h2 class="text-2xl font-bold flex items-center gap-2">
-							<span class="text-primary-500">*</span>
-							<span
-								class="bg-gradient-to-r from-slate-800 to-slate-600 dark:from-gray-100 dark:to-gray-300 bg-clip-text text-transparent"
-								>links</span
-							>
-						</h2>
-						<div
-							class="flex flex-wrap items-center gap-4 text-slate-700 dark:text-gray-300"
-						>
-							<a
-								href="#"
-								class="group flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-200 dark:border-gray-700 hover:border-primary-200 dark:hover:border-primary-600 hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-all duration-300"
-							>
-								<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-									<path
-										d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"
-									/>
-									<path
-										d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"
-									/>
-								</svg>
-								<span
-									class="group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-300"
-									>email</span
-								>
-							</a>
-							<a
-								href="https://github.com"
-								class="group flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-200 dark:border-gray-700 hover:border-primary-200 dark:hover:border-primary-600 hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-all duration-300"
-							>
-								<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-									<path
-										fill-rule="evenodd"
-										d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z"
-										clip-rule="evenodd"
-									/>
-								</svg>
-								<span
-									class="group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-300"
-									>github</span
-								>
-							</a>
-							<a
-								href="https://linkedin.com"
-								class="group flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-200 dark:border-gray-700 hover:border-primary-200 dark:hover:border-primary-600 hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-all duration-300"
-							>
-								<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-									<path
-										fill-rule="evenodd"
-										d="M16.338 16.338H13.67V12.16c0-.995-.017-2.277-1.387-2.277-1.39 0-1.601 1.086-1.601 2.207v4.248H8.014v-8.59h2.559v1.174h.037c.356-.675 1.227-1.387 2.526-1.387 2.703 0 3.203 1.778 3.203 4.092v4.711zM5.005 6.575a1.548 1.548 0 11-.003-3.096 1.548 1.548 0 01.003 3.096zm-1.337 9.763H6.34v-8.59H3.667v8.59zM17.668 1H2.328C1.595 1 1 1.581 1 2.298v15.403C1 18.418 1.595 19 2.328 19h15.34c.734 0 1.332-.582 1.332-1.299V2.298C19 1.581 18.402 1 17.668 1z"
-										clip-rule="evenodd"
-									/>
-								</svg>
-								<span
-									class="group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-300"
-									>linkedin</span
-								>
-							</a>
-							<button
-								onclick="openBookingModal()"
-								class="group flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-primary-500 to-orange-500 text-white rounded-lg hover:from-primary-600 hover:to-orange-600 transition-all duration-300 shadow-lg hover:shadow-xl"
-							>
-								<svg
-									class="w-4 h-4"
-									fill="none"
-									stroke="currentColor"
-									viewBox="0 0 24 24"
-								>
-									<path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										stroke-width="2"
-										d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-									/>
-								</svg>
-								<span>book a call</span>
-							</button>
-						</div>
-					</div>
-				</div>
-			</main>
-		</div>
-
-		<!-- Booking Modal -->
-		<div
-			id="modal-backdrop"
-			class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden animate-backdrop-in"
-		>
-			<div class="flex items-center justify-center min-h-screen p-4">
-				<div
-					id="booking-modal"
-					class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto animate-modal-in hidden"
-				>
-					<!-- Modal Header -->
-					<div
-						class="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700"
-					>
-						<div class="flex items-center gap-3">
-							<div
-								class="p-2 bg-gradient-to-r from-primary-500 to-orange-500 rounded-lg"
-							>
-								<svg
-									class="w-5 h-5 text-white"
-									fill="none"
-									stroke="currentColor"
-									viewBox="0 0 24 24"
-								>
-									<path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										stroke-width="2"
-										d="M8 7V3a1 1 0 011-1h6a1 1 0 011 1v4m-6 0h6m-6 0V7a1 1 0 00-1 1v10a1 1 0 001 1h8a1 1 0 001-1V8a1 1 0 00-1-1h-2"
-									/>
-								</svg>
-							</div>
-							<div>
-								<h3 class="text-xl font-bold text-slate-800 dark:text-gray-200">
-									Book a Call
-								</h3>
-								<p class="text-sm text-slate-600 dark:text-gray-400">
-									Let's discuss your project needs
-								</p>
-							</div>
-						</div>
-						<button
-							onclick="closeBookingModal()"
-							class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors duration-300"
-						>
-							<svg
-								class="w-5 h-5 text-slate-600 dark:text-gray-400"
-								fill="none"
-								stroke="currentColor"
-								viewBox="0 0 24 24"
-							>
-								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									stroke-width="2"
-									d="M6 18L18 6M6 6l12 12"
-								/>
-							</svg>
-						</button>
-					</div>
-
-					<!-- Modal Body -->
-					<form id="booking-form" class="p-6 space-y-4">
-						<!-- Name -->
-						<div>
-							<label
-								for="name"
-								class="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-2"
-							>
-								Full Name *
-							</label>
-							<input
-								type="text"
-								id="name"
-								name="name"
-								required
-								class="w-full px-4 py-3 bg-white dark:bg-gray-700 border border-slate-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent text-slate-900 dark:text-gray-100 placeholder-slate-400 dark:placeholder-gray-400"
-								placeholder="Your full name"
-							/>
-						</div>
-
-						<!-- Email -->
-						<div>
-							<label
-								for="email"
-								class="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-2"
-							>
-								Email Address *
-							</label>
-							<input
-								type="email"
-								id="email"
-								name="email"
-								required
-								class="w-full px-4 py-3 bg-white dark:bg-gray-700 border border-slate-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent text-slate-900 dark:text-gray-100 placeholder-slate-400 dark:placeholder-gray-400"
-								placeholder="your@email.com"
-							/>
-						</div>
-
-						<!-- Company -->
-						<div>
-							<label
-								for="company"
-								class="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-2"
-							>
-								Company/Organization
-							</label>
-							<input
-								type="text"
-								id="company"
-								name="company"
-								class="w-full px-4 py-3 bg-white dark:bg-gray-700 border border-slate-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent text-slate-900 dark:text-gray-100 placeholder-slate-400 dark:placeholder-gray-400"
-								placeholder="Your company name (optional)"
-							/>
-						</div>
-
-						<!-- Project Type -->
-						<div>
-							<label
-								for="project-type"
-								class="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-2"
-							>
-								Project Type *
-							</label>
-							<select
-								id="project-type"
-								name="project-type"
-								required
-								class="w-full px-4 py-3 bg-white dark:bg-gray-700 border border-slate-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent text-slate-900 dark:text-gray-100"
-							>
-								<option value="">Select project type</option>
-								<option value="web-application">Web Application</option>
-								<option value="mobile-app">Mobile Application</option>
-								<option value="api-development">API Development</option>
-								<option value="database-design">Database Design</option>
-								<option value="system-integration">System Integration</option>
-								<option value="consultation">Technical Consultation</option>
-								<option value="other">Other</option>
-							</select>
-						</div>
-
-						<!-- Budget Range -->
-						<div>
-							<label
-								for="budget"
-								class="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-2"
-							>
-								Budget Range
-							</label>
-							<select
-								id="budget"
-								name="budget"
-								class="w-full px-4 py-3 bg-white dark:bg-gray-700 border border-slate-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent text-slate-900 dark:text-gray-100"
-							>
-								<option value="">Select budget range</option>
-								<option value="under-1k">Under $1,000</option>
-								<option value="1k-5k">$1,000 - $5,000</option>
-								<option value="5k-10k">$5,000 - $10,000</option>
-								<option value="10k-25k">$10,000 - $25,000</option>
-								<option value="25k-plus">$25,000+</option>
-								<option value="discuss">Let's discuss</option>
-							</select>
-						</div>
-
-						<!-- Timeline -->
-						<div>
-							<label
-								for="timeline"
-								class="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-2"
-							>
-								Project Timeline
-							</label>
-							<select
-								id="timeline"
-								name="timeline"
-								class="w-full px-4 py-3 bg-white dark:bg-gray-700 border border-slate-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent text-slate-900 dark:text-gray-100"
-							>
-								<option value="">Select timeline</option>
-								<option value="asap">ASAP</option>
-								<option value="1-month">Within 1 month</option>
-								<option value="2-3-months">2-3 months</option>
-								<option value="3-6-months">3-6 months</option>
-								<option value="6-months-plus">6+ months</option>
-								<option value="flexible">Flexible</option>
-							</select>
-						</div>
-
-						<!-- Project Details -->
-						<div>
-							<label
-								for="details"
-								class="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-2"
-							>
-								Project Details *
-							</label>
-							<textarea
-								id="details"
-								name="details"
-								required
-								rows="4"
-								class="w-full px-4 py-3 bg-white dark:bg-gray-700 border border-slate-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent text-slate-900 dark:text-gray-100 placeholder-slate-400 dark:placeholder-gray-400 resize-none"
-								placeholder="Tell me about your project requirements, goals, and any specific features you need..."
-							></textarea>
-						</div>
-
-						<!-- Preferred Contact Method -->
-						<div>
-							<label
-								class="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-3"
-							>
-								Preferred Contact Method *
-							</label>
-							<div class="space-y-2">
-								<label class="flex items-center">
-									<input
-										type="radio"
-										name="contact-method"
-										value="email"
-										required
-										class="w-4 h-4 text-primary-500 bg-white dark:bg-gray-700 border-slate-300 dark:border-gray-600 focus:ring-primary-500 focus:ring-2"
-									/>
-									<span class="ml-2 text-slate-700 dark:text-gray-300"
-										>Email</span
-									>
-								</label>
-								<label class="flex items-center">
-									<input
-										type="radio"
-										name="contact-method"
-										value="phone"
-										class="w-4 h-4 text-primary-500 bg-white dark:bg-gray-700 border-slate-300 dark:border-gray-600 focus:ring-primary-500 focus:ring-2"
-									/>
-									<span class="ml-2 text-slate-700 dark:text-gray-300"
-										>Phone Call</span
-									>
-								</label>
-								<label class="flex items-center">
-									<input
-										type="radio"
-										name="contact-method"
-										value="video"
-										class="w-4 h-4 text-primary-500 bg-white dark:bg-gray-700 border-slate-300 dark:border-gray-600 focus:ring-primary-500 focus:ring-2"
-									/>
-									<span class="ml-2 text-slate-700 dark:text-gray-300"
-										>Video Call</span
-									>
-								</label>
-							</div>
-						</div>
-
-						<!-- Phone Number (conditional) -->
-						<div id="phone-field" class="hidden">
-							<label
-								for="phone"
-								class="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-2"
-							>
-								Phone Number
-							</label>
-							<input
-								type="tel"
-								id="phone"
-								name="phone"
-								class="w-full px-4 py-3 bg-white dark:bg-gray-700 border border-slate-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent text-slate-900 dark:text-gray-100 placeholder-slate-400 dark:placeholder-gray-400"
-								placeholder="+1 (555) 123-4567"
-							/>
-						</div>
-
-						<!-- Submit Button -->
-						<div class="pt-4">
-							<button
-								type="submit"
-								id="submit-btn"
-								class="w-full bg-gradient-to-r from-primary-500 to-orange-500 hover:from-primary-600 hover:to-orange-600 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center"
-							>
-								<svg
-									class="w-5 h-5 mr-2"
-									fill="none"
-									stroke="currentColor"
-									viewBox="0 0 24 24"
-								>
-									<path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										stroke-width="2"
-										d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
-									/>
-								</svg>
-								Send Request
-							</button>
-						</div>
-
-						<!-- Note -->
-						<div
-							class="text-xs text-slate-500 dark:text-gray-400 text-center pt-2"
-						>
-							I'll get back to you within 24 hours to schedule our call.
-						</div>
-					</form>
-				</div>
+		<!-- Hero Content -->
+		<div class="container d-flex flex-column justify-content-center align-items-center text-center flex-grow-1"
+			style="z-index:1;">
+			<div class="mb-3">
+				<span class="badge bg-secondary text-uppercase fw-normal px-3 py-2">Designer & Frontend Engineer</span>
+			</div>
+			<h1 class="display-4 fw-bold mb-4">
+				Crafting minimal, high-performance digital products
+			</h1>
+			<p class="lead text-secondary mb-4">
+				I help startups and teams ship elegant interfaces—focused on clarity,
+				speed, and measurable outcomes.
+			</p>
+			<div class="d-flex flex-wrap justify-content-center gap-3">
+				<a href="#projects" class="btn btn-light rounded-pill px-4">
+					<i class="bi bi-grid me-2"></i> View Projects
+				</a>
+				<a href="#contact" class="btn btn-outline-light rounded-pill px-4">
+					<i class="bi bi-chat-dots me-2"></i> Let's Collaborate
+				</a>
 			</div>
 		</div>
 
-		<script>
-			// Show/hide phone field based on contact method selection
-			document.addEventListener("DOMContentLoaded", function () {
-				const contactMethods = document.querySelectorAll(
-					'input[name="contact-method"]'
-				);
-				const phoneField = document.getElementById("phone-field");
-				const phoneInput = document.getElementById("phone");
+	</section>
 
-				contactMethods.forEach((method) => {
-					method.addEventListener("change", function () {
-						if (this.value === "phone" || this.value === "video") {
-							phoneField.classList.remove("hidden");
-							phoneInput.required = true;
-						} else {
-							phoneField.classList.add("hidden");
-							phoneInput.required = false;
-						}
-					});
-				});
-			});
-		</script>
-	</body>
+
+
+
+	<!-- featured project -->
+	<!-- Featured Project -->
+	<section class="featured-project py-5">
+		<div class="container">
+			<div class="text-center mb-5">
+				<span class="badge bg-secondary text-uppercase px-3 py-2 fw-normal">Featured Project</span>
+				<h2 class="fw-bold mt-3 text-light">Checkout Performance Dashboard</h2>
+				<p class="text-secondary mb-0">
+					Explore a selection of my recent work — blending creativity, usability, and performance.
+				</p>
+			</div>
+
+			<div class="project-card row align-items-center g-4">
+				<div class="col-md-6">
+					<div class="project-image rounded-4 overflow-hidden shadow-sm">
+						<img src="/images/selected-works-1.png" alt="Checkout Performance Dashboard"
+							class="img-fluid w-100">
+					</div>
+				</div>
+
+				<div class="col-md-6 text-light">
+					<h6 class="text-uppercase text-secondary fw-semibold mb-2">Case Study</h6>
+					<h3 class="fw-bold mb-3">Checkout Performance Dashboard</h3>
+					<p class="text-secondary mb-4">
+						Increased conversion by <span class="text-light fw-semibold">14%</span> with a streamlined
+						payment flow and adaptive UI system.
+					</p>
+
+					<div class="d-flex flex-wrap gap-2 mb-4">
+						<span class="badge bg-dark border border-light">HTML</span>
+						<span class="badge bg-dark border border-light">CSS</span>
+						<span class="badge bg-dark border border-light">JavaScript</span>
+						<span class="badge bg-dark border border-light">Bootstrap</span>
+					</div>
+
+					<a href="featured-case-study.html" class="btn btn-outline-light rounded-pill px-4">
+						<i class="bi bi-arrow-right me-2"></i> View Case Study
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+	<!-- Selected Works -->
+	<section class="selected-works py-5">
+		<div class="container text-center">
+
+			<div class="mb-5">
+				<span class="badge bg-secondary text-uppercase px-3 py-2 fw-normal">Selected Works</span>
+				<h2 class="fw-bold mt-3 text-light">A Few Projects Spanning Product, Web, and Visual Systems</h2>
+				<p class="text-secondary mb-4">
+					A selection of projects showcasing creativity, usability, and technical craft.
+				</p>
+				<a href="#all-projects" class="btn btn-outline-light rounded-pill px-4">Browse All</a>
+			</div>
+
+			<div class="row g-4 justify-content-center">
+				<!-- Card 1 -->
+				<div class="col-md-6 col-lg-5">
+					<div class="project-card position-relative overflow-hidden rounded-4">
+						<img src="/images/selected-works-1.png" class="img-fluid w-100 rounded-4" alt="Project 1">
+						<div class="project-overlay p-4 d-flex flex-column justify-content-end">
+							<h5 class="fw-bold text-light">E-Commerce Dashboard</h5>
+							<p class="text-secondary mb-3">
+								Enhanced sales analytics with a clean, interactive UI for better decision-making.
+							</p>
+							<a href="#" class="btn btn-light btn-sm rounded-pill px-3">View Project</a>
+						</div>
+					</div>
+				</div>
+
+				<!-- Card 2 -->
+				<div class="col-md-6 col-lg-5">
+					<div class="project-card position-relative overflow-hidden rounded-4">
+						<img src="/images/selected-works-2.png" class="img-fluid w-100 rounded-4" alt="Project 2">
+						<div class="project-overlay p-4 d-flex flex-column justify-content-end">
+							<h5 class="fw-bold text-light">Portfolio Redesign</h5>
+							<p class="text-secondary mb-3">
+								A modern redesign focusing on clarity, motion, and storytelling.
+							</p>
+							<a href="#" class="btn btn-light btn-sm rounded-pill px-3">View Project</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 col-lg-5">
+					<div class="project-card position-relative overflow-hidden rounded-4">
+						<img src="/images/selected-works-3.png" class="img-fluid w-100 rounded-4" alt="Project 2">
+						<div class="project-overlay p-4 d-flex flex-column justify-content-end">
+							<h5 class="fw-bold text-light">Portfolio Redesign</h5>
+							<p class="text-secondary mb-3">
+								A modern redesign focusing on clarity, motion, and storytelling.
+							</p>
+							<a href="#" class="btn btn-light btn-sm rounded-pill px-3">View Project</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 col-lg-5">
+					<div class="project-card position-relative overflow-hidden rounded-4">
+						<img src="/images/selected-works-4.png" class="img-fluid w-100 rounded-4" alt="Project 2">
+						<div class="project-overlay p-4 d-flex flex-column justify-content-end">
+							<h5 class="fw-bold text-light">Portfolio Redesign</h5>
+							<p class="text-secondary mb-3">
+								A modern redesign focusing on clarity, motion, and storytelling.
+							</p>
+							<a href="#" class="btn btn-light btn-sm rounded-pill px-3">View Project</a>
+						</div>
+					</div>
+				</div>
+
+				<!-- Add more cards below -->
+			</div>
+		</div>
+	</section>
+
+
+	<!-- About Section -->
+	<!-- About Section -->
+	<section class="about-section py-5">
+		<div class="container rounded-4 p-4 shadow-sm">
+			<div class="row align-items-center gy-4">
+
+				<!-- Left Column: Image -->
+				<div class="col-md-6 text-center">
+					<img src="/images/022d7bc7-5032-498c-aa75-1d8088028348.jpg" alt="Picture of me"
+						class="img-fluid rounded-4 shadow-sm w-75">
+				</div>
+
+				<!-- Right Column: Text -->
+				<div class="col-md-6">
+					<h3 class="fw-bold text-uppercase mb-3">About Me</h3>
+					<p class="text-muted mb-4">
+						I'm a product designer and developer focused on clarity and performance.
+						I collaborate with small teams to validate ideas, design scalable systems,
+						and build production-grade experiences.
+					</p>
+
+					<!-- Skill Sets -->
+					<div class="d-flex flex-wrap gap-2 mb-2">
+						<button type="button" class="btn btn-outline-primary btn-sm">HTML</button>
+						<button type="button" class="btn btn-outline-primary btn-sm">CSS Frameworks</button>
+						<button type="button" class="btn btn-outline-primary btn-sm">JavaScript</button>
+						<button type="button" class="btn btn-outline-primary btn-sm">PHP</button>
+					</div>
+					<div class="d-flex flex-wrap gap-2">
+						<button type="button" class="btn btn-outline-primary btn-sm">MySQL</button>
+						<button type="button" class="btn btn-outline-primary btn-sm">C#</button>
+						<button type="button" class="btn btn-outline-primary btn-sm">Laravel</button>
+						<button type="button" class="btn btn-outline-primary btn-sm">Java - Android</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+	<!-- experience section -->
+	<!-- Experience Section -->
+	<section class="experience-section py-5">
+		<div class="container border rounded-4 p-4 shadow-sm">
+			<h2 class="fw-bold text-uppercase mb-4 text-center">Experience</h2>
+
+			<div class="row g-4">
+				<!-- Card 1 -->
+				<div class="col-md-6 col-lg-4">
+					<div class="card h-100 border-0 shadow-sm">
+						<img src="https://via.placeholder.com/600x400" class="card-img-top rounded-top-3"
+							alt="Experience 1">
+						<div class="card-body">
+							<h5 class="card-title fw-semibold">Web Developer Intern</h5>
+							<p class="card-text text-muted">
+								Developed responsive landing pages and optimized UI components using Bootstrap and
+								JavaScript.
+							</p>
+							<a href="#" class="btn btn-outline-primary btn-sm">View Details</a>
+						</div>
+					</div>
+				</div>
+
+				<!-- Card 2 -->
+				<div class="col-md-6 col-lg-4">
+					<div class="card h-100 border-0 shadow-sm">
+						<img src="https://via.placeholder.com/600x400" class="card-img-top rounded-top-3"
+							alt="Experience 2">
+						<div class="card-body">
+							<h5 class="card-title fw-semibold">Freelance Designer</h5>
+							<p class="card-text text-muted">
+								Created visual identities and website layouts that enhanced client branding and
+								engagement.
+							</p>
+							<a href="#" class="btn btn-outline-primary btn-sm">View Details</a>
+						</div>
+					</div>
+				</div>
+
+				<!-- Card 3 -->
+				<div class="col-md-6 col-lg-4">
+					<div class="card h-100 border-0 shadow-sm">
+						<img src="https://via.placeholder.com/600x400" class="card-img-top rounded-top-3"
+							alt="Experience 3">
+						<div class="card-body">
+							<h5 class="card-title fw-semibold">UI/UX Assistant</h5>
+							<p class="card-text text-muted">
+								Assisted in designing user flows and interactive prototypes for web and mobile
+								applications.
+							</p>
+							<a href="#" class="btn btn-outline-primary btn-sm">View Details</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+	<!-- Testimonial Section -->
+	<section class="testimonial-section py-5">
+		<div class="container border rounded-4 p-4 shadow-sm">
+			<h2 class="fw-bold text-uppercase text-center mb-5">Testimonials</h2>
+
+			<div class="row g-4">
+				<!-- Testimonial 1 -->
+				<div class="col-md-6 col-lg-4">
+					<div class="card h-100 border-0 shadow-sm p-3 text-center">
+						<img src="/images/client1.webp" alt="Client photo" class="rounded-circle mx-auto mb-3"
+							width="80" height="80">
+						<h5 class="fw-semibold mb-1">Jane Doe</h5>
+						<p class="text-muted mb-2 small">Founder, Studio Creative</p>
+						<p class="card-text fst-italic">
+							“Working with Hamza was an absolute pleasure. He’s fast, detail-oriented, and always
+							delivers quality beyond expectations.”
+						</p>
+					</div>
+				</div>
+
+				<!-- Testimonial 2 -->
+				<div class="col-md-6 col-lg-4">
+					<div class="card h-100 border-0 shadow-sm p-3 text-center">
+						<img src="/images/client2.webp" alt="Client photo" class="rounded-circle mx-auto mb-3"
+							width="80" height="80">
+						<h5 class="fw-semibold mb-1">Mark Santos</h5>
+						<p class="text-muted mb-2 small">CTO, NovaTech</p>
+						<p class="card-text fst-italic">
+							“His UI design and frontend build improved our app’s UX drastically. I’d recommend him to
+							any fast-moving team.”
+						</p>
+					</div>
+				</div>
+
+				<!-- Testimonial 3 -->
+				<div class="col-md-6 col-lg-4">
+					<div class="card h-100 border-0 shadow-sm p-3 text-center">
+						<img src="/images/client3.webp" alt="Client photo" class="rounded-circle mx-auto mb-3"
+							width="80" height="80">
+						<h5 class="fw-semibold mb-1">Ella Cruz</h5>
+						<p class="text-muted mb-2 small">Marketing Manager, FlowDigital</p>
+						<p class="card-text fst-italic">
+							“From concept to delivery, Hamza’s workflow was seamless. He communicates clearly and meets
+							every deadline.”
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- contact form -->
+	<!-- Contact Section -->
+	<section class="contact-section py-5">
+		<div class="container border rounded-4 p-4 shadow-sm">
+			<h2 class="fw-bold text-uppercase mb-3">Let's Build Something</h2>
+			<p class="text-muted mb-5">Share a few details and I’ll get back within 24–48 hours.</p>
+
+			<div class="row mb-4">
+				<div class="col-md-6 d-flex align-items-start mb-3">
+					<i class="bi bi-geo-alt fs-3 text-primary me-3"></i>
+					<div>
+						<p class="mb-1 fw-semibold">Remote</p>
+						<p class="text-muted small mb-0">GMT+8 (Philippines Time)</p>
+					</div>
+				</div>
+				<div class="col-md-6 d-flex align-items-start mb-3">
+					<i class="bi bi-stopwatch fs-3 text-primary me-3"></i>
+					<div>
+						<p class="mb-1 fw-semibold">Monday – Friday</p>
+						<p class="text-muted small mb-0">9:00 AM – 5:00 PM</p>
+					</div>
+				</div>
+			</div>
+
+			<form>
+				<div class="row g-3">
+					<div class="col-md-6">
+						<label for="name" class="form-label">Full Name</label>
+						<input type="text" class="form-control" id="name" placeholder="Your name">
+					</div>
+					<div class="col-md-6">
+						<label for="email" class="form-label">Email Address</label>
+						<input type="email" class="form-control" id="email" placeholder="name@example.com">
+					</div>
+					<div class="col-md-6">
+						<label for="subject" class="form-label">Subject</label>
+						<input type="text" class="form-control" id="subject" placeholder="Project, collaboration, etc.">
+					</div>
+					<div class="col-md-6">
+						<label for="budget" class="form-label">Estimated Budget (optional)</label>
+						<input type="text" class="form-control" id="budget" placeholder="e.g., $500 - $2,000">
+					</div>
+				</div>
+
+				<div class="mt-4 mb-3">
+					<label for="message" class="form-label">Message</label>
+					<textarea class="form-control" id="message" rows="4"
+						placeholder="Tell me a bit about your project..."></textarea>
+				</div>
+
+				<div class="d-flex flex-column flex-sm-row align-items-sm-center justify-content-between">
+					<p class="text-muted small mb-3 mb-sm-0">By sending, you agree to the <a href="#"
+							class="text-decoration-none">terms</a>.</p>
+					<button type="submit" class="btn btn-primary px-4">Send Message</button>
+				</div>
+			</form>
+		</div>
+	</section>
+
+	<!-- footer -->
+	<footer class="footer-section bg-dark text-light py-4 mt-5">
+		<div class="container text-center">
+			<!-- Logo / Brand -->
+			<button type="button" class="btn btn-outline-light rounded-circle fw-bold mb-3"
+				style="width: 50px; height: 50px;">
+				HM
+			</button>
+
+			<!-- Copyright -->
+			<p class="mb-2 small">
+				© 2025 Hamza. All rights reserved.
+			</p>
+
+			<!-- Footer Links -->
+			<ul class="list-inline mb-0">
+				<li class="list-inline-item">
+					<a href="#" class="text-light text-decoration-none small">Privacy Policy</a>
+				</li>
+				<li class="list-inline-item">
+					<a href="#" class="text-light text-decoration-none small">Terms of Service</a>
+				</li>
+				<li class="list-inline-item">
+					<a href="#" class="text-light text-decoration-none small">LinkedIn</a>
+				</li>
+				<li class="list-inline-item">
+					<a href="#" class="text-light text-decoration-none small">GitHub</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- bootstrap link -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+		crossorigin="anonymous"></script>
+</body>
+
 </html>
