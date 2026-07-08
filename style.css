@@ -1,76 +1,91 @@
-/* 1. Use a more-intuitive box-sizing model */
-*,
-*::before,
-*::after {
-	box-sizing: border-box;
-}
-
-/* 2. Remove default margin */
-* {
-	margin: 0;
-}
-
-/* 3. Enable keyword animations */
-@media (prefers-reduced-motion: no-preference) {
-	html {
-		interpolate-size: allow-keywords;
-	}
-}
-
 body {
-	/* 4. Add accessible line-height */
-	line-height: 1.5;
-	/* 5. Improve text rendering */
-	-webkit-font-smoothing: antialiased;
-}
-
-/* 6. Improve media defaults */
-img,
-picture,
-video,
-canvas,
-svg {
-	display: block;
-	max-width: 100%;
-}
-
-/* 7. Inherit fonts for form controls */
-input,
-button,
-textarea,
-select {
-	font: inherit;
-}
-
-/* 8. Avoid text overflows */
-p,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-	overflow-wrap: break-word;
-}
-
-/* 9. Improve line wrapping */
-p {
-	text-wrap: pretty;
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-	text-wrap: balance;
-}
-
-/* 10. Create a root stacking context */
-#root,
-#__next {
-	isolation: isolate;
-}
-
-/* Custom CSS */
-
+            background-color: #eef2f7;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+        }
+        .nav-link-custom {
+            color: #555;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        .nav-link-custom:hover {
+            color: #000;
+        }
+        .profile-card, .info-card {
+            background-color: #f8f9fa;
+            border-radius: 12px;
+            border: 1px solid #f1f3f5;
+        }
+        .profile-img-container {
+            background-color: #e9ecef;
+            border-radius: 8px;
+            overflow: hidden;
+            height: 200px;
+            display: flex;
+            align-items: flex-end;
+        }
+        .profile-img-container img {
+            max-height: 100%;
+            object-fit: cover;
+        }
+        .social-btn {
+            width: 36px;
+            height: 36px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            background-color: #ffffff;
+            color: #495057;
+            border: 1px solid #dee2e6;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        .social-btn:hover {
+            background-color: #e9ecef;
+            color: #000;
+        }
+        .org-box {
+            background-color: #ffffff;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        .org-icon {
+            font-size: 1.5rem;
+            margin-bottom: 4px;
+        }
+        .portfolio-card {
+            background-color: #e9ecef;
+            border-radius: 12px;
+            height: 190px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .portfolio-badge {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #495057;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .experience-item img {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+        }
+        .text-muted-custom {
+            color: #868e96;
+            font-size: 0.85rem;
+        }
