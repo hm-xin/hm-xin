@@ -1,199 +1,145 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Hamza Macabato</title>
-	<!-- custom css -->
-	<link rel="stylesheet" href="css-reset-styles.css">
-	<link rel="stylesheet" href="styles.css">
-	<!-- bootstrap link -->
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-		integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hamza Macabato — Junior Software Developer</title>
+  <meta name="description"
+    content="Portfolio of Hamza Macabato, Junior Software Developer specializing in PHP, MySQL, and full-stack web development.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-	<div class="min-vh-100 py-5">
-		<div class="container-xxl">
 
-			<header class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
-				<div class="h4 fw-bold mb-0">Carrer<span class="text-primary">.</span></div>
-				<nav class="d-flex align-items-center gap-3">
-					<a href="#" class="nav-link-custom text-dark">Home</a>
-					<span class="text-muted">/</span>
-					<a href="#" class="nav-link-custom">About</a>
-					<span class="text-muted">/</span>
-					<a href="#" class="nav-link-custom">Services</a>
-					<span class="text-muted">/</span>
-					<a href="#" class="nav-link-custom">Contact</a>
-					<span class="text-muted">/</span>
-					<a href="#" class="nav-link-custom">Blog</a>
-					<span class="text-muted">/</span>
-					<a href="#" class="text-dark ms-2"><i class="fa-solid fa-moon"></i></a>
-				</nav>
-			</header>
+  <header class="nav">
+    <div class="nav-inner">
+      <a class="brand" href="index.html"><span class="dot"></span>hamza.dev</a>
+      <nav class="links">
+        <a href="about.html">about</a>
+        <a href="experience.html">experience</a>
+        <a href="skills.html">skills</a>
+        <a href="education.html">education</a>
+      </nav>
+      <a class="nav-cta" href="#contact">contact()</a>
+    </div>
+  </header>
 
-			<div class="row g-4">
+  <main class="wrap">
 
-				<div class="col-lg-4">
-					<div class="profile-card p-4 text-center h-100 d-flex flex-column justify-content-between">
-						<div>
-							<div class="profile-img-container mb-3">
-								<img src="images/hero-img.jpg"
-									alt="Hamza Macabato" class="mx-auto d-block">
-							</div>
-							<h4 class="fw-bold mb-1">Hamza Macabato</h4>
-							<p class="text-muted small px-2">A Passionate Full Stack Developer & Product Designer having
-								12 years of Experiences over 14+ Country Worldwide.</p>
-						</div>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="editor">
+        <div class="editor-bar">
+          <div class="traffic"><span></span><span></span><span></span></div>
+          <div class="editor-tab">profile.json</div>
+        </div>
+        <div class="editor-body">
+          <div class="code-line"><span class="ln">1</span><span class="kw">const</span> developer = {</div>
+          <div class="code-line"><span class="ln">2</span>&nbsp;&nbsp;<span class="fn">name</span>: <span
+              class="str">"Hamza Macabato"</span>,</div>
+          <div class="code-line"><span class="ln">3</span>&nbsp;&nbsp;<span class="fn">role</span>: <span
+              class="str">"Junior Software Developer"</span>,</div>
+          <div class="code-line"><span class="ln">4</span>&nbsp;&nbsp;<span class="fn">location</span>: <span
+              class="str">"Sta. Mesa, Manila, PH"</span>,</div>
+          <div class="code-line"><span class="ln">5</span>&nbsp;&nbsp;<span class="fn">stack</span>: [<span
+              class="str">"PHP"</span>, <span class="str">"MySQL"</span>, <span class="str">"Laravel"</span>, <span
+              class="str">"WordPress"</span>],</div>
+          <div class="code-line"><span class="ln">6</span>&nbsp;&nbsp;<span class="fn">status</span>: <span
+              class="str">"open to work"</span>, <span class="cm">// new grad, BSIT</span></div>
+          <div class="code-line"><span class="ln">7</span>};</div>
+        </div>
+      </div>
 
-						<div>
-							<button class="btn btn-primary w-100 py-2 mb-3 rounded-3 fw-medium">
-								<i class="fa-solid fa-phone-flip me-2"></i> Subscribe
-							</button>
+      <h1 class="hero-name">Hamza Macabato<span class="cursor"></span></h1>
+      <p class="hero-role">$ junior software developer — php · mysql · full‑stack</p>
 
-							<div class="d-flex justify-content-center gap-2">
-								<a href="#" class="social-btn"><i class="fa-brands fa-tiktok"></i></a>
-								<a href="#" class="social-btn"><i class="fa-brands fa-youtube"></i></a>
-								<a href="#" class="social-btn"><i class="fa-brands fa-soundcloud"></i></a>
-								<a href="#" class="social-btn"><i class="fa-brands fa-github"></i></a>
-								<a href="#" class="social-btn"><i class="fa-brands fa-spotify"></i></a>
-							</div>
-						</div>
-					</div>
-				</div>
+      <div class="hero-actions">
+        <a class="btn-primary" href="#contact">→ Get in touch</a>
+        <a class="btn-ghost" href="about.html">Read my story</a>
+      </div>
+    </section>
 
-				<div class="col-lg-4 d-flex flex-column gap-4">
+    <!-- QUICK NAV -->
+    <section id="explore">
+      <div class="sec-head">
+        <span class="sec-tag">index</span>
+        <h2 class="sec-title">explore</h2>
+        <div class="sec-rule"></div>
+      </div>
+      <div class="nav-cards">
+        <a class="nav-card" href="experience.html">
+          <span class="idx">01</span>
+          <h3>Experience</h3>
+          <p>An internship and an ongoing freelance build — real systems, real users.</p>
+          <span class="arrow">view experience →</span>
+        </a>
+        <a class="nav-card" href="skills.html">
+          <span class="idx">02</span>
+          <h3>Skills</h3>
+          <p>Languages, frameworks, tools, and the soft skills that hold it together.</p>
+          <span class="arrow">view skills →</span>
+        </a>
+        <a class="nav-card" href="education.html">
+          <span class="idx">03</span>
+          <h3>Education</h3>
+          <p>BSIT graduate, Eulogio "Amang" Rodriguez Institute of Science and Technology.</p>
+          <span class="arrow">view education →</span>
+        </a>
+      </div>
+    </section>
 
-					<div class="info-card p-4 flex-grow-1">
-						<h5 class="fw-bold mb-3">Experience</h5>
-						<div class="d-flex flex-column gap-3">
+    <!-- ABOUT TEASER -->
+    <section id="about">
+      <div class="sec-head">
+        <span class="sec-tag">--</span>
+        <h2 class="sec-title">about</h2>
+        <div class="sec-rule"></div>
+      </div>
+      <div class="about-grid">
+        <p class="about-text">
+          A junior software developer with hands-on experience across <span class="accent">PHP</span>, <span
+            class="accent">MySQL</span>, <span class="accent">HTML</span>, <span class="accent">CSS</span>, and <span
+            class="accent">JavaScript</span>. I bring extra value beyond the codebase, with a solid grounding in
+          hardware troubleshooting, Windows/macOS administration, and day-to-day user support. Adaptable and
+          detail-oriented, I'm ready to contribute across both software development and IT operations — whichever the
+          team needs.
+        </p>
+        <div class="stat-row">
+          <div class="stat"><b>BSIT</b><span>fresh graduate, 2024</span></div>
+          <div class="stat"><b>2</b><span>roles, incl. ongoing freelance</span></div>
+          <div class="stat"><b>3+</b><span>web builder tools</span></div>
+        </div>
+        <a class="btn-ghost" style="margin-top:22px; width:fit-content;" href="about.html">Read the full story →</a>
+      </div>
+    </section>
 
-							<div class="experience-item d-flex align-items-center justify-content-between">
-								<span class="text-muted-custom fw-medium">2024 / 2024</span>
-								<div class="d-flex align-items-center text-end gap-2">
-									<div>
-										<div class="fw-bold small mb-0">Google AdSense</div>
-										<div class="text-muted extra-small" style="font-size: 0.75rem;">Web Developer
-										</div>
-									</div>
-									<i class="fa-solid fa-rectangle-ad text-warning fs-4"></i>
-								</div>
-							</div>
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="contact">
+        <span class="sec-tag">/ say hello</span>
+        <h2>Let's build something together.</h2>
+        <p>Open to junior developer and IT support roles. Reach out through any of the channels below — I usually reply
+          within a day.</p>
+        <div class="contact-links">
+          <a href="mailto:macabatohamza911@gmail.com">✉ macabatohamza911@gmail.com</a>
+          <a href="tel:+639276197821">☎ (+63) 927 619 7821</a>
+          <a href="about.html">📍 Sta. Mesa, Manila</a>
+        </div>
+      </div>
+    </section>
 
-							<div class="experience-item d-flex align-items-center justify-content-between">
-								<span class="text-muted-custom fw-medium">2021 / 2025</span>
-								<div class="d-flex align-items-center text-end gap-2">
-									<div>
-										<div class="fw-bold small mb-0">Google Shopping</div>
-										<div class="text-muted extra-small" style="font-size: 0.75rem;">Product Designer
-										</div>
-									</div>
-									<i class="fa-solid fa-bag-shopping text-danger fs-4"></i>
-								</div>
-							</div>
+  </main>
 
-							<div class="experience-item d-flex align-items-center justify-content-between">
-								<span class="text-muted-custom fw-medium">2022 / 2027</span>
-								<div class="d-flex align-items-center text-end gap-2">
-									<div>
-										<div class="fw-bold small mb-0">Google Ads</div>
-										<div class="text-muted extra-small" style="font-size: 0.75rem;">Marketing</div>
-									</div>
-									<i class="fa-solid fa-chart-line text-primary fs-4"></i>
-								</div>
-							</div>
+  <footer>
+    <span class="cm">// end of file —</span> © 2026 Hamza Macabato. Built with HTML, CSS &amp; a little JS.
+  </footer>
 
-							<div class="experience-item d-flex align-items-center justify-content-between">
-								<span class="text-muted-custom fw-medium">2018 / 2022</span>
-								<div class="d-flex align-items-center text-end gap-2">
-									<div>
-										<div class="fw-bold small mb-0">Google Maps</div>
-										<div class="text-muted extra-small" style="font-size: 0.75rem;">Front end
-											Developer</div>
-									</div>
-									<i class="fa-solid fa-location-dot text-success fs-4"></i>
-								</div>
-							</div>
-
-						</div>
-					</div>
-
-					<div class="info-card p-4">
-						<h5 class="fw-bold mb-3">My Organization</h5>
-						<div class="row g-2">
-							<div class="col-4">
-								<div class="org-box">
-									<div class="org-icon text-danger"><i class="fa-solid fa-envelope"></i></div>
-									Gmail
-								</div>
-							</div>
-							<div class="col-4">
-								<div class="org-box">
-									<div class="org-icon text-primary"><i class="fa-solid fa-video"></i></div>
-									Meet
-								</div>
-							</div>
-							<div class="col-4">
-								<div class="org-box">
-									<div class="org-icon text-success"><i class="fa-solid fa-calendar-days"></i></div>
-									Calender
-								</div>
-							</div>
-							<div class="col-4">
-								<div class="org-box">
-									<div class="org-icon text-warning"><i class="fa-solid fa-hard-drive"></i></div>
-									Drive
-								</div>
-							</div>
-							<div class="col-4">
-								<div class="org-box">
-									<div class="org-icon text-info"><i class="fa-brands fa-chrome"></i></div>
-									Chrome
-								</div>
-							</div>
-							<div class="col-4">
-								<div class="org-box">
-									<div class="org-icon text-secondary"><i class="fa-solid fa-earth-americas"></i>
-									</div>
-									Earth
-								</div>
-							</div>
-						</div>
-					</div>
-
-				</div>
-
-				<div class="col-lg-4">
-					<div class="info-card p-4 h-100 d-flex flex-column gap-3">
-						<h5 class="fw-bold mb-1">Portfolio</h5>
-
-						<div class="portfolio-card flex-grow-1">
-							<i class="fa-solid fa-chart-pie fa-3x text-muted opacity-50"></i>
-							<span class="portfolio-badge">Data Analyst</span>
-						</div>
-
-						<div class="portfolio-card flex-grow-1">
-							<i class="fa-solid fa-laptop-code fa-3x text-muted opacity-50"></i>
-							<span class="portfolio-badge">Sales Marketing</span>
-						</div>
-					</div>
-				</div>
-
-			</div>
-
-			<footer class="text-center mt-4 pt-2 text-muted" style="font-size: 0.8rem;">
-				Carrer 2026, Blogger Template By <a href="#" class="text-decoration-none text-primary">Temabanua</a>
-			</footer>
-
-		</div>
-	</div>
-
-
-
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
