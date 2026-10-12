@@ -3,143 +3,355 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hamza Macabato — Junior Software Developer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hamza Macabato | Full-Stack Web Developer</title>
   <meta name="description"
-    content="Portfolio of Hamza Macabato, Junior Software Developer specializing in PHP, MySQL, and full-stack web development.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    content="Hamza Macabato is a BS Information Technology graduate building fast, clean web apps with PHP, Laravel, JavaScript and Node.">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link
-    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600;700;800&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@600&family=Poppins:wght@300;400;500;600;700&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <header class="nav">
-    <div class="nav-inner">
-      <a class="brand" href="index.html"><span class="dot"></span>hamza.dev</a>
-      <nav class="links">
-        <a href="about.html">about</a>
-        <a href="experience.html">experience</a>
-        <a href="skills.html">skills</a>
-        <a href="education.html">education</a>
-      </nav>
-      <a class="nav-cta" href="#contact">contact()</a>
+  <nav class="nav-top">
+    <div class="container d-flex justify-content-between align-items-center">
+      <a href="#" class="logo" aria-label="Back to top">hm.</a>
+      <span class="avail"><i></i>Open to work</span>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-word anton" aria-hidden="true"><span id="word"></span><span class="hw-caret"></span></div>
+    <img class="hero-photo" src="images/hero-photo-1.png" alt="Portrait of Hamza Macabato"
+      onerror="this.style.display='none'">
+    <div class="container hero-in">
+      <div class="row align-items-end g-4">
+        <div class="col-lg-4">
+          <span class="script">Hi, I'm</span>
+          <h1>Hamza Macabato</h1>
+          <p class="lead mt-2 mb-4">I build web apps that are fast, clear and easy to maintain. Fresh BSIT graduate with
+            real client work behind me.</p>
+          <p class="mb-4"><a href="#contact" class="btn btn-red">Hire me</a><a href="#work" class="btn-ghost">See my
+              projects</a></p>
+          <p class="chip mb-0">Based in the Philippines<br>Available for remote work</p>
+        </div>
+        <div class="col-lg-3 offset-lg-5">
+          <div class="terminal mb-3">
+            <div class="bar"><i></i><i></i><i></i></div>
+            <pre id="typed"></pre>
+          </div>
+          <div class="tag">Full-stack developer<br>Frontend, backend, databases</div>
+        </div>
+      </div>
     </div>
   </header>
 
-  <main class="wrap">
+  <div class="marquee" aria-hidden="true">
+    <div id="mq"></div>
+  </div>
 
-    <!-- HERO -->
-    <section class="hero">
-      <div class="editor">
-        <div class="editor-bar">
-          <div class="traffic"><span></span><span></span><span></span></div>
-          <div class="editor-tab">profile.json</div>
+  <section class="dark position-relative" id="work">
+    <div class="container">
+      <div class="d-flex justify-content-between chip rv"><span>Selected projects</span><span>Web &amp; software</span>
+      </div>
+      <h2 class="sec-title mt-3 mb-5 rv">projects that solve<br><span class="red">real problems.</span></h2>
+      <div class="row g-4">
+        <div class="col-md-6 rv">
+          <div class="proj">
+            <div class="kind">Thesis project</div>
+            <div class="shot">Add screenshot: parking-system.png</div>
+            <h3>parking management system</h3>
+            <p class="small text-secondary">A web-based system for managing parking, built as my thesis. Data lives in
+              MySQL and the interface works on phones and desktops.</p>
+            <div class="stack"><span>PHP</span><span>HTML</span><span>CSS</span><span>Bootstrap</span><span>MySQL</span>
+            </div>
+          </div>
         </div>
-        <div class="editor-body">
-          <div class="code-line"><span class="ln">1</span><span class="kw">const</span> developer = {</div>
-          <div class="code-line"><span class="ln">2</span>&nbsp;&nbsp;<span class="fn">name</span>: <span
-              class="str">"Hamza Macabato"</span>,</div>
-          <div class="code-line"><span class="ln">3</span>&nbsp;&nbsp;<span class="fn">role</span>: <span
-              class="str">"Junior Software Developer"</span>,</div>
-          <div class="code-line"><span class="ln">4</span>&nbsp;&nbsp;<span class="fn">location</span>: <span
-              class="str">"Sta. Mesa, Manila, PH"</span>,</div>
-          <div class="code-line"><span class="ln">5</span>&nbsp;&nbsp;<span class="fn">stack</span>: [<span
-              class="str">"PHP"</span>, <span class="str">"MySQL"</span>, <span class="str">"Laravel"</span>, <span
-              class="str">"WordPress"</span>],</div>
-          <div class="code-line"><span class="ln">6</span>&nbsp;&nbsp;<span class="fn">status</span>: <span
-              class="str">"open to work"</span>, <span class="cm">// new grad, BSIT</span></div>
-          <div class="code-line"><span class="ln">7</span>};</div>
-        </div>
-      </div>
-
-      <h1 class="hero-name">Hamza Macabato<span class="cursor"></span></h1>
-      <p class="hero-role">$ junior software developer — php · mysql · full‑stack</p>
-
-      <div class="hero-actions">
-        <a class="btn-primary" href="#contact">→ Get in touch</a>
-        <a class="btn-ghost" href="about.html">Read my story</a>
-      </div>
-    </section>
-
-    <!-- QUICK NAV -->
-    <section id="explore">
-      <div class="sec-head">
-        <span class="sec-tag">index</span>
-        <h2 class="sec-title">explore</h2>
-        <div class="sec-rule"></div>
-      </div>
-      <div class="nav-cards">
-        <a class="nav-card" href="experience.html">
-          <span class="idx">01</span>
-          <h3>Experience</h3>
-          <p>An internship and an ongoing freelance build — real systems, real users.</p>
-          <span class="arrow">view experience →</span>
-        </a>
-        <a class="nav-card" href="skills.html">
-          <span class="idx">02</span>
-          <h3>Skills</h3>
-          <p>Languages, frameworks, tools, and the soft skills that hold it together.</p>
-          <span class="arrow">view skills →</span>
-        </a>
-        <a class="nav-card" href="education.html">
-          <span class="idx">03</span>
-          <h3>Education</h3>
-          <p>BSIT graduate, Eulogio "Amang" Rodriguez Institute of Science and Technology.</p>
-          <span class="arrow">view education →</span>
-        </a>
-      </div>
-    </section>
-
-    <!-- ABOUT TEASER -->
-    <section id="about">
-      <div class="sec-head">
-        <span class="sec-tag">--</span>
-        <h2 class="sec-title">about</h2>
-        <div class="sec-rule"></div>
-      </div>
-      <div class="about-grid">
-        <p class="about-text">
-          A junior software developer with hands-on experience across <span class="accent">PHP</span>, <span
-            class="accent">MySQL</span>, <span class="accent">HTML</span>, <span class="accent">CSS</span>, and <span
-            class="accent">JavaScript</span>. I bring extra value beyond the codebase, with a solid grounding in
-          hardware troubleshooting, Windows/macOS administration, and day-to-day user support. Adaptable and
-          detail-oriented, I'm ready to contribute across both software development and IT operations — whichever the
-          team needs.
-        </p>
-        <div class="stat-row">
-          <div class="stat"><b>BSIT</b><span>fresh graduate, 2024</span></div>
-          <div class="stat"><b>2</b><span>roles, incl. ongoing freelance</span></div>
-          <div class="stat"><b>3+</b><span>web builder tools</span></div>
-        </div>
-        <a class="btn-ghost" style="margin-top:22px; width:fit-content;" href="about.html">Read the full story →</a>
-      </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section id="contact">
-      <div class="contact">
-        <span class="sec-tag">/ say hello</span>
-        <h2>Let's build something together.</h2>
-        <p>Open to junior developer and IT support roles. Reach out through any of the channels below — I usually reply
-          within a day.</p>
-        <div class="contact-links">
-          <a href="mailto:macabatohamza911@gmail.com">✉ macabatohamza911@gmail.com</a>
-          <a href="tel:+639276197821">☎ (+63) 927 619 7821</a>
-          <a href="about.html">📍 Sta. Mesa, Manila</a>
+        <div class="col-md-6 rv">
+          <div class="proj">
+            <div class="kind">Internship project</div>
+            <div class="shot">Add screenshot: job-request-system.png</div>
+            <h3>job request system</h3>
+            <p class="small text-secondary">A web-based system I built during my internship so job requests can be
+              submitted and tracked in one place. Mobile-responsive.</p>
+            <div class="stack"><span>PHP</span><span>HTML</span><span>CSS</span><span>Bootstrap</span><span>MySQL</span>
+            </div>
+          </div>
         </div>
       </div>
-    </section>
 
-  </main>
+      <h3 class="sub-title mt-5 pt-4 rv">built for real clients</h3>
+      <p class="small text-secondary rv" style="max-width:560px">Landing pages for clients, written in HTML, CSS and
+        JavaScript. Tap a screenshot to see the full page.</p>
+      <div class="row g-4 mt-1">
+        <div class="col-md-6 rv">
+          <div class="client">
+            <a href="images/project-screenshots/client-1-full.jpg" target="_blank" rel="noopener"
+              aria-label="View full page screenshot of winner circle webinar page"><img
+                src="images/project-screenshots/client-1-thumbnail.jpg"
+                alt="Landing page screenshot: winner circle webinar page" loading="lazy"></a>
+            <h3>winner circle webinar page</h3>
+            <p class="small text-secondary">Registration page for a free AI business webinar, with the session details,
+              a slot counter and a clear reserve button.</p>
+            <div class="stack"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>Mobile-responsive</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 rv">
+          <div class="client">
+            <a href="images/project-screenshot/client-2-full.jpg" target="_blank" rel="noopener"
+              aria-label="View full page screenshot of automatedleadsystem.io"><img
+                src="images/project-screenshots/client-2-thumbnail.jpg"
+                alt="Landing page screenshot: automatedleadsystem.io" loading="lazy"></a>
+            <h3>automatedleadsystem.io</h3>
+            <p class="small text-secondary">Product landing page for a CRM and marketing automation platform, with
+              feature sections, pricing and a demo request form.</p>
+            <div class="stack"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>Mobile-responsive</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 rv">
+          <div class="client">
+            <a href="images/project-screenshots/client-3-full.jpg" target="_blank" rel="noopener"
+              aria-label="View full page screenshot of rsj experts cap consultancy"><img
+                src="images/project-screenshots/client-3-thumbnail.jpg"
+                alt="Landing page screenshot: rsj experts cap consultancy" loading="lazy"></a>
+            <h3>rsj experts cap consultancy</h3>
+            <p class="small text-secondary">Services page for a business consultancy, built to turn visitors into booked
+              discovery calls.</p>
+            <div class="stack"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>Mobile-responsive</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 rv">
+          <div class="client">
+            <a href="images/project-screenshots/client-4-full.jpg" target="_blank" rel="noopener"
+              aria-label="View full page screenshot of winner circle experience"><img
+                src="images/project-screenshots/client-4-thumbnail.jpg"
+                alt="Landing page screenshot: winner circle experience" loading="lazy"></a>
+            <h3>winner circle experience</h3>
+            <p class="small text-secondary">Long-form invitation page with a dark and gold look that guides visitors to
+              one free sign-up.</p>
+            <div class="stack"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>Mobile-responsive</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flow rv">
+        <b>Contact and booking, automated.</b>
+        <span>For these clients I set up a contact and booking flow that connects each landing page to an automated
+          workflow, so inquiries and bookings are handled without manual follow-up. The automation platform comes from
+          the client I work with.</span>
+      </div>
 
-  <footer>
-    <span class="cm">// end of file —</span> © 2026 Hamza Macabato. Built with HTML, CSS &amp; a little JS.
-  </footer>
+      <h3 class="sub-title mt-5 pt-4 rv">more projects</h3>
+      <div class="row g-4 mt-1">
+        <div class="col-md-4 rv">
+          <div class="mini">
+            <h5>budget buddy</h5>
+            <p class="small text-secondary mb-2">Expense tracker with monthly limits, charts and offline support.</p>
+            <div class="stack"><span>JavaScript</span><span>Chart.js</span><span>PWA</span></div>
+          </div>
+        </div>
+        <div class="col-md-4 rv">
+          <div class="mini">
+            <h5>inventory api</h5>
+            <p class="small text-secondary mb-2">REST API with JWT login and stock tracking.</p>
+            <div class="stack"><span>Node</span><span>Express</span><span>MongoDB</span></div>
+          </div>
+        </div>
+        <div class="col-md-4 rv">
+          <div class="mini">
+            <h5>weather dashboard</h5>
+            <p class="small text-secondary mb-2">Search any city and see a live forecast.</p>
+            <div class="stack"><span>React</span><span>REST API</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <section class="light position-relative" id="about">
+    <div class="ghost anton" aria-hidden="true">LOGIC</div>
+    <div class="container position-relative">
+      <div class="chip rv">About me</div>
+      <h2 class="sec-title mt-3 mb-5 rv">i build things that<br><span class="red">make sense to use.</span></h2>
+      <div class="row g-5 align-items-center">
+        <div class="col-lg-6 rv">
+          <p>I'm Hamza, a recent BS Information Technology graduate. I like turning messy problems into software that is
+            simple to use and simple to maintain.</p>
+          <p>A page that only looks good isn't enough for me. I think about the person using it, the data behind it, and
+            what happens when something goes wrong.</p>
+          <p><b>I'm lazy, but not the bad kind.</b> I want my work to run as efficiently as possible, so I would rather
+            build something once that does the job than repeat the same task by hand. That's why I like automation,
+            reusable code and clear structure.</p>
+          <p class="motto">Pursuit of perfection.</p>
+          <p class="mb-1">Before I write code, I ask four questions:</p>
+          <p class="small text-secondary">Who is this for?<br>What should it do?<br>What can go wrong?<br>Who will
+            maintain it?</p>
+          <div class="stat-box mt-3">
+            <div><b>6</b> projects: 2 web systems, 4 client sites</div>
+            <div><b>&lt;/&gt;</b> Frontend, backend and databases</div>
+            <div><b>PH</b> Philippines, remote-ready</div>
+          </div>
+        </div>
+        <div class="col-lg-5 offset-lg-1 rv position-relative">
+          <div class="photo"><span class="ph">HM</span></div>
+          <span class="callout" style="top:12%;left:-8%">clean<br>code</span>
+          <span class="callout" style="top:48%;right:-6%">responsive<br>design</span>
+          <span class="callout" style="bottom:10%;left:-8%">databases<br>&amp; apis</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="light" style="padding-top:20px">
+    <div class="container">
+      <div class="chip rv">What I can do for you</div>
+      <h2 class="sec-title mt-3 mb-5 rv">not just pages.<br><span class="red">the whole product.</span></h2>
+      <div class="row g-4">
+        <div class="col-md-6 rv">
+          <div class="svc">
+            <h3>frontend development</h3>
+            <p>Responsive, accessible interfaces in HTML, CSS, JavaScript and Bootstrap that work on any screen.</p>
+            <span class="pill">HTML, CSS, JS, Bootstrap</span>
+          </div>
+        </div>
+        <div class="col-md-6 rv">
+          <div class="svc">
+            <h3>backend &amp; apis</h3>
+            <p>Secure logins, well-structured databases and REST endpoints your frontend can rely on.</p><span
+              class="pill">PHP, Node, SQL</span>
+          </div>
+        </div>
+        <div class="col-md-6 rv">
+          <div class="svc">
+            <h3>full-stack apps</h3>
+            <p>From idea to deployed app: dashboards, booking systems, inventory tools and school or business systems.
+            </p><span class="pill">Laravel, React, MySQL</span>
+          </div>
+        </div>
+        <div class="col-md-6 rv">
+          <div class="svc">
+            <h3>fixes &amp; improvements</h3>
+            <p>Slow pages, broken layouts or messy code? I debug, refactor and speed them up.</p><span
+              class="pill">Debug, optimize, Git</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="light process" id="process">
+    <div class="pin" id="pin">
+      <div class="sticky">
+        <div class="chip">How I work</div>
+        <h2 class="sec-title mt-3">no random code.<br><span class="red">every step has a job.</span></h2>
+        <div class="stage" id="stage">
+          <div class="step">
+            <div class="n">01</div>
+            <h3>understand</h3>
+            <p>Clarify the goal, the users and the features that matter first.</p>
+          </div>
+          <div class="step">
+            <div class="n">02</div>
+            <h3>plan</h3>
+            <p>Sketch the pages, data model and user flow before touching code.</p>
+          </div>
+          <div class="step">
+            <div class="n">03</div>
+            <h3>design</h3>
+            <p>Wireframe and style a clear, consistent interface.</p>
+          </div>
+          <div class="step">
+            <div class="n">04</div>
+            <h3>build</h3>
+            <p>Write clean, commented code with regular Git commits.</p>
+          </div>
+          <div class="step">
+            <div class="n">05</div>
+            <h3>test</h3>
+            <p>Check every form, edge case and screen size. Fix what breaks.</p>
+          </div>
+          <div class="step">
+            <div class="n">06</div>
+            <h3>launch</h3>
+            <p>Deploy, then improve based on real feedback.</p>
+          </div>
+        </div>
+        <div class="dots" id="dots"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="scroll-hint" id="hint">keep scrolling ↓</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="dark position-relative">
+    <div class="ghost anton" aria-hidden="true">PROOF</div>
+    <div class="container position-relative">
+      <div class="chip rv">By the numbers</div>
+      <h2 class="sec-title mt-3 mb-5 rv">what you can<br><span class="red">expect from me.</span></h2>
+      <div class="row g-4 mb-5 text-center text-md-start">
+        <div class="col-md-4 rv">
+          <div class="count" data-to="2">0</div>
+          <h4>web systems built</h4>
+          <p class="small text-secondary">A thesis and an internship project, in PHP and MySQL.</p>
+        </div>
+        <div class="col-md-4 rv">
+          <div class="count" data-to="4">0</div>
+          <h4>client landing pages</h4>
+          <p class="small text-secondary">Each with an automated contact and booking flow.</p>
+        </div>
+        <div class="col-md-4 rv">
+          <div class="count" data-to="100" data-suffix="%">0</div>
+          <h4>mobile-responsive</h4>
+          <p class="small text-secondary">Every project works on phones, tablets and desktops.</p>
+        </div>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-4 rv">
+          <div class="expect">
+            <h4>Readable code</h4>
+            <p>Clear names, comments where they help, and a Git history you can follow.</p>
+          </div>
+        </div>
+        <div class="col-md-4 rv">
+          <div class="expect">
+            <h4>Honest updates</h4>
+            <p>I tell you early if something is at risk, and I explain what I'm doing in plain language.</p>
+          </div>
+        </div>
+        <div class="col-md-4 rv">
+          <div class="expect">
+            <h4>Efficient by design</h4>
+            <p>I automate repeat work, so you get results faster and with fewer manual steps.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta position-relative" id="contact">
+    <div class="ghost anton" aria-hidden="true">LET'S WORK</div>
+    <div class="container position-relative pt-5">
+      <div class="row">
+        <div class="col-lg-7 offset-lg-5 rv">
+          <h2 class="sec-title mb-3">have something to build?<br><span class="red">let's talk.</span></h2>
+          <p class="small" style="max-width:420px">Tell me what problem you're solving. I'll reply within two days with
+            questions or a plan.</p>
+          <a href="mailto:you@email.com" class="btn btn-red mt-2">Email me</a>
+          <p class="chip mt-4">Web development, full-stack apps and systems<br>Open to full-time, freelance and remote
+            work.</p>
+        </div>
+      </div>
+      <p class="foot text-center mt-5 mb-0">© 2026 Hamza Macabato. Designed and built by me.</p>
+    </div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
 </body>
 
 </html>
